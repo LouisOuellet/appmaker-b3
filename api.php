@@ -46,9 +46,11 @@ class b3API extends CRUDAPI {
 					$organization = $organization[0];
 					if(!empty($b3)){
 						$b3 = $b3[0];
+						$action = "Updating";
 					} else {
 						$b3ID = $this->Auth->create('b3',$metaData);
 						$b3 = $this->Auth->read('b3',$b3ID)->all()[0];
+						$action = "Creating";
 					}
 					// Load Relationships
 					$relationships = $this->getRelationships('b3',$b3['id']);
@@ -69,9 +71,8 @@ class b3API extends CRUDAPI {
 					foreach($relationships as $id => $relationship){
 						if($newID < $id){ $newID = $id; }
 					}
-					if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$lastID."] vs [".$newID."]\n"; }
 					if($lastID < $newID){
-						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$newID."]Updating B3: ".$metaData['transaction_number']."\n"; }
+						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$newID."]".$action." B3: ".$metaData['transaction_number']."\n"; }
 					}
 				} else {
 					if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Unable to find organization with [setCodeHVS] or [setCodeLVS] of: ".(substr(str_replace('-','',$metaData['transaction_number']), 0, 5))."\n"; }
