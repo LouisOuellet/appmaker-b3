@@ -1,0 +1,289 @@
+{
+  "b3": {
+        "id": {
+            "order": 1,
+            "type": "int(11)"
+        },
+        "1": "id",
+        "created": {
+            "order": 2,
+            "type": "datetime"
+        },
+        "2": "created",
+        "modified": {
+            "order": 3,
+            "type": "datetime"
+        },
+        "3": "modified",
+        "owner": {
+            "order": 4,
+            "type": "varchar(255)"
+        },
+        "4": "owner",
+        "updated_by": {
+            "order": 5,
+            "type": "varchar(255)"
+        },
+        "5": "updated_by",
+        "vendor_code": {
+            "order": 6,
+            "type": "varchar(255)"
+        },
+        "6": "vendor_code",
+        "vendor_name": {
+            "order": 7,
+            "type": "varchar(255)"
+        },
+        "7": "vendor_name",
+        "invoice_date": {
+            "order": 8,
+            "type": "date"
+        },
+        "8": "invoice_date",
+        "exchange_rate": {
+            "order": 9,
+            "type": "varchar(255)"
+        },
+        "9": "exchange_rate",
+        "invoice_number": {
+            "order": 10,
+            "type": "varchar(255)"
+        },
+        "10": "invoice_number",
+        "transaction_number": {
+            "order": 11,
+            "type": "varchar(255)"
+        },
+        "11": "transaction_number",
+        "status": {
+            "order": 12,
+            "type": "varchar(255)"
+        },
+        "12": "status",
+        "cargo_control_number": {
+            "order": 13,
+            "type": "varchar(255)"
+        },
+        "13": "cargo_control_number",
+        "vfd_of_shipment": {
+            "order": 14,
+            "type": "varchar(255)"
+        },
+        "14": "vfd_of_shipment",
+        "b3_gst_amount": {
+            "order": 15,
+            "type": "varchar(255)"
+        },
+        "15": "b3_gst_amount",
+        "importer_name": {
+            "order": 16,
+            "type": "varchar(255)"
+        },
+        "16": "importer_name",
+        "billing_type": {
+            "order": 17,
+            "type": "varchar(255)"
+        },
+        "17": "billing_type",
+        "number_of_b3_lines": {
+            "order": 18,
+            "type": "varchar(255)"
+        },
+        "18": "number_of_b3_lines",
+        "po_num": {
+            "order": 19,
+            "type": "varchar(255)"
+        },
+        "19": "po_num",
+        "b3_duty_amount": {
+            "order": 20,
+            "type": "varchar(255)"
+        },
+        "20": "b3_duty_amount",
+        "carrier_name": {
+            "order": 21,
+            "type": "varchar(255)"
+        },
+        "21": "carrier_name",
+        "location_of_goods": {
+            "order": 22,
+            "type": "varchar(255)"
+        },
+        "22": "location_of_goods",
+        "b3_client_code": {
+            "order": 23,
+            "type": "varchar(255)"
+        },
+        "23": "b3_client_code",
+        "customs_office": {
+            "order": 24,
+            "type": "varchar(255)"
+        },
+        "24": "customs_office",
+        "customs_office_name": {
+            "order": 25,
+            "type": "varchar(255)"
+        },
+        "25": "customs_office_name",
+        "mot_code": {
+            "order": 26,
+            "type": "varchar(255)"
+        },
+        "26": "mot_code",
+        "user_code": {
+            "order": 27,
+            "type": "varchar(255)"
+        },
+        "27": "user_code",
+        "assessment_option": {
+            "order": 28,
+            "type": "varchar(255)"
+        },
+        "28": "assessment_option",
+        "created_by": {
+            "order": 29,
+            "type": "varchar(255)"
+        },
+        "29": "created_by",
+        "created_tist": {
+            "order": 30,
+            "type": "datetime"
+        },
+        "30": "created_tist",
+        "broker_service_level": {
+            "order": 31,
+            "type": "varchar(255)"
+        },
+        "31": "broker_service_level",
+        "proc_type": {
+            "order": 32,
+            "type": "varchar(255)"
+        },
+        "32": "proc_type",
+        "rel_mode_code": {
+            "order": 33,
+            "type": "varchar(255)"
+        },
+        "33": "rel_mode_code",
+        "cust_rel_code": {
+            "order": 34,
+            "type": "varchar(255)"
+        },
+        "34": "cust_rel_code",
+        "billed_date": {
+            "order": 35,
+            "type": "varchar(255)"
+        },
+        "35": "billed_date",
+        "num_pkg": {
+            "order": 36,
+            "type": "varchar(255)"
+        },
+        "36": "num_pkg",
+        "pkg_code": {
+            "order": 37,
+            "type": "varchar(255)"
+        },
+        "37": "pkg_code",
+        "gross_weight": {
+            "order": 38,
+            "type": "varchar(255)"
+        },
+        "38": "gross_weight",
+        "weight_uom": {
+            "order": 39,
+            "type": "varchar(255)"
+        },
+        "39": "weight_uom",
+        "bol_num": {
+            "order": 40,
+            "type": "varchar(255)"
+        },
+        "40": "bol_num",
+        "release_date": {
+            "order": 41,
+            "type": "date"
+        },
+        "41": "release_date",
+        "b3_date": {
+            "order": 42,
+            "type": "date"
+        },
+        "42": "b3_date",
+        "b3_due_date": {
+            "order": 43,
+            "type": "date"
+        },
+        "43": "b3_due_date",
+        "billing_amount": {
+            "order": 44,
+            "type": "varchar(255)"
+        },
+        "44": "billing_amount",
+        "billing_currency": {
+            "order": 45,
+            "type": "varchar(255)"
+        },
+        "45": "billing_currency",
+        "sima_amount": {
+            "order": 46,
+            "type": "varchar(255)"
+        },
+        "46": "sima_amount",
+        "excise_duty": {
+            "order": 47,
+            "type": "varchar(255)"
+        },
+        "47": "excise_duty",
+        "excise_tax": {
+            "order": 48,
+            "type": "varchar(255)"
+        },
+        "48": "excise_tax",
+        "cons_name": {
+            "order": 49,
+            "type": "varchar(255)"
+        },
+        "49": "cons_name",
+        "k84_acct_date": {
+            "order": 50,
+            "type": "date"
+        },
+        "50": "k84_acct_date",
+        "team_code": {
+            "order": 51,
+            "type": "varchar(255)"
+        },
+        "51": "team_code",
+        "client_sbrn": {
+            "order": 52,
+            "type": "varchar(255)"
+        },
+        "52": "client_sbrn",
+        "td_pay_mode": {
+            "order": 53,
+            "type": "varchar(255)"
+        },
+        "53": "td_pay_mode",
+        "container_numbers": {
+            "order": 54,
+            "type": "text"
+        },
+        "54": "container_numbers",
+        "invoice_paid": {
+            "order": 55,
+            "type": "date"
+        },
+        "55": "invoice_paid",
+        "customs_charges_paid": {
+            "order": 56,
+            "type": "varchar(255)"
+        },
+        "56": "customs_charges_paid",
+        "bill_to": {
+            "order": 57,
+            "type": "varchar(255)"
+        },
+        "57": "bill_to"
+    },
+}
