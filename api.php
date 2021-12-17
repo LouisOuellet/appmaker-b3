@@ -17,6 +17,10 @@ class b3API extends CRUDAPI {
 	public function saveB3from($type,$record){
 		// Load Relationships
 		$relationships = $this->getRelationships($type,$record['id']);
+		$lastID = 0;
+		foreach($relations as $id => $relationship){
+			if($lastID < $id){ $lastID = $id; }
+		}
 		// Handling types of records
 		switch($type){
 			case"conversations":
@@ -49,24 +53,25 @@ class b3API extends CRUDAPI {
 						$organization = $organization[0];
 						if(!empty($b3)){
 							$b3 = $b3[0];
-							$this->createRelationship([
-								'relationship_1' => 'b3',
-								'link_to_1' => $b3['id'],
-								'relationship_2' => 'organizations',
-								'link_to_2' => $organization['id'],
-							]);
 						} else {
 							$b3ID = $this->Auth->create('b3',$metaData);
 							$b3 = $this->Auth->read('b3',$b3ID)->all()[0];
-							$this->createRelationship([
-								'relationship_1' => 'b3',
-								'link_to_1' => $b3['id'],
-								'relationship_2' => 'organizations',
-								'link_to_2' => $organization['id'],
-							]);
 						}
+						$this->createRelationship([
+							'relationship_1' => 'b3',
+							'link_to_1' => $b3['id'],
+							'relationship_2' => 'organizations',
+							'link_to_2' => $organization['id'],
+						]);
 						$this->copyRelationships($type,$record['id'],'b3',$b3['id']);
-						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Updating B3: ".$metaData['transaction_number']."\n"; }
+						// Reload Relationships
+						$relationships = $this->getRelationships($type,$record['id']);
+						foreach($relations as $id => $relationship){
+							if($lastID < $id){
+								if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Updating B3: ".$metaData['transaction_number']."\n"; }
+								break;
+							}
+						}
 					}
 				}
 				break;
