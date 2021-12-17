@@ -36,8 +36,8 @@ API.Plugins.b3 = {
 					container.attr('data-id',dataset.output.this.raw.id);
 					// GUI
 					// Adding Layout
-					bgImage = '/plugins/b3/dist/img/conversation.png';
-					API.GUI.Layouts.details.build(dataset.output,container,{title:"Conversation Details",image:bgImage},function(data,layout){
+					bgImage = '/plugins/conversations/dist/img/conversation.png';
+					API.GUI.Layouts.details.build(dataset.output,container,{title:"B3 Details",image:bgImage},function(data,layout){
 						if(layout.main.parents().eq(2).parent('.modal-body').length > 0){
 							var modal = layout.main.parents().eq(2).parent('.modal-body').parents().eq(2);
 							if(API.Auth.validate('plugin', 'b3', 3)){

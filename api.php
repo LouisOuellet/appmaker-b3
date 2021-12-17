@@ -1,6 +1,19 @@
 <?php
 class b3API extends CRUDAPI {
 
+	public function get($request = null, $data = null){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+			$this->Auth->setLimit(0);
+			// Load Event
+			$get = parent::get('conversations', $data);
+			// Build Relations
+			$get = $this->buildRelations($get);
+			// Return
+			return $get;
+		}
+	}
+
 	public function saveB3from($type,$record){
 		// Load Relationships
 		$relationships = $this->getRelationships($type,$record['id']);
