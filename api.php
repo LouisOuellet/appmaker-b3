@@ -15,12 +15,6 @@ class b3API extends CRUDAPI {
 	}
 
 	public function saveB3from($type,$record){
-		// Load Relationships
-		$relationships = $this->getRelationships($type,$record['id']);
-		$lastID = 0;
-		foreach($relationships as $id => $relationship){
-			if($lastID < $id){ $lastID = $id; }
-		}
 		// Handling types of records
 		switch($type){
 			case"conversations":
@@ -56,6 +50,12 @@ class b3API extends CRUDAPI {
 						$b3ID = $this->Auth->create('b3',$metaData);
 						$b3 = $this->Auth->read('b3',$b3ID)->all()[0];
 					}
+					// Load Relationships
+					$relationships = $this->getRelationships('b3',$b3['id']);
+					$lastID = 0;
+					foreach($relationships as $id => $relationship){
+						if($lastID < $id){ $lastID = $id; }
+					}
 					$this->createRelationship([
 						'relationship_1' => 'b3',
 						'link_to_1' => $b3['id'],
@@ -64,7 +64,7 @@ class b3API extends CRUDAPI {
 					]);
 					$this->copyRelationships($type,$record['id'],'b3',$b3['id']);
 					// Reload Relationships
-					$relationships = $this->getRelationships($type,$record['id']);
+					$relationships = $this->getRelationships('b3',$b3['id']);
 					$newID = 0;
 					foreach($relationships as $id => $relationship){
 						if($newID < $id){ $newID = $id; }
