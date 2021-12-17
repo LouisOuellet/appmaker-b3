@@ -15,6 +15,7 @@ class b3API extends CRUDAPI {
 	}
 
 	public function saveB3from($type,$record){
+		if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$type."]Lookup B3\n"; }
 		// Load Relationships
 		$relationships = $this->getRelationships($type,$record['id']);
 		$lastID = 0;
