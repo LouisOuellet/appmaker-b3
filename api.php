@@ -15,14 +15,12 @@ class b3API extends CRUDAPI {
 	}
 
 	public function saveB3from($type,$record){
-		if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."]Save B3 from ".$type."\n"; }
 		// Load Relationships
 		$relationships = $this->getRelationships($type,$record['id']);
 		$lastID = 0;
 		foreach($relationships as $id => $relationship){
 			if($lastID < $id){ $lastID = $id; }
 		}
-		if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Last Relationship is: ".$lastID."\n"; }
 		// Handling types of records
 		switch($type){
 			case"conversations":
@@ -71,8 +69,9 @@ class b3API extends CRUDAPI {
 					foreach($relationships as $id => $relationship){
 						if($newID < $id){ $newID = $id; }
 					}
+					if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$lastID."] vs [".$newID."]\n"; }
 					if($lastID < $newID){
-						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$id."]Updating B3: ".$metaData['transaction_number']."\n"; }
+						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$newID."]Updating B3: ".$metaData['transaction_number']."\n"; }
 					}
 				} else {
 					if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Unable to find organization with [setCodeHVS] or [setCodeLVS] of: ".(substr(str_replace('-','',$metaData['transaction_number']), 0, 5))."\n"; }
