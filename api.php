@@ -18,7 +18,7 @@ class b3API extends CRUDAPI {
 		// Load Relationships
 		$relationships = $this->getRelationships($type,$record['id']);
 		$lastID = 0;
-		foreach($relations as $id => $relationship){
+		foreach($relationships as $id => $relationship){
 			if($lastID < $id){ $lastID = $id; }
 		}
 		// Handling types of records
@@ -66,7 +66,7 @@ class b3API extends CRUDAPI {
 						$this->copyRelationships($type,$record['id'],'b3',$b3['id']);
 						// Reload Relationships
 						$relationships = $this->getRelationships($type,$record['id']);
-						foreach($relations as $id => $relationship){
+						foreach($relationships as $id => $relationship){
 							if($lastID < $id){
 								if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "Updating B3: ".$metaData['transaction_number']."\n"; }
 								break;
