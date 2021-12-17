@@ -42,7 +42,7 @@ class b3API extends CRUDAPI {
 							'link_to_2' => $organization['id'],
 						]);
 					} else {
-						$b3ID = $this->Auth->create('b3',$b3);
+						$b3ID = $this->Auth->create('b3',$metaData);
 						$b3 = $this->Auth->read('b3',$b3ID)->all()[0];
 						$this->createRelationship([
 							'relationship_1' => 'b3',
