@@ -66,8 +66,8 @@ class b3API extends CRUDAPI {
 							]);
 						}
 						$this->copyRelationships($type,$record['id'],'b3',$b3['id']);
+						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$metaData['transaction_number']."]Updating B3\n"; }
 					}
-					if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$metaData['transaction_number']."]Updating B3\n"; }
 				}
 				break;
 			default: break;
