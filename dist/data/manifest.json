@@ -8,7 +8,12 @@
             "raw": "https:\/\/raw.githubusercontent.com\/LouisOuellet\/"
         }
     },
+    "requirements": {
+        "table": [
+            "b3"
+        ]
+    },
     "name": "b3",
-    "build": 4,
+    "build": 5,
     "version": "21.12-dev"
 }
