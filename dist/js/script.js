@@ -163,19 +163,19 @@ API.Plugins.b3 = {
 										details.owner = relation.owner;
 										if(!API.Helper.isSet(details,['isActive'])||(API.Helper.isSet(details,['isActive']) && details.isActive)||(API.Helper.isSet(details,['isActive']) && !details.isActive && (API.Auth.validate('custom', 'b3_'+relation.relationship+'_isActive', 1)||API.Auth.validate('custom', relation.relationship+'_isActive', 1)))){
 											switch(relation.relationship){
-												case"notes":
-													API.Builder.Timeline.add.card(layout.timeline,details,'sticky-note','warning',function(item){
-														item.find('.timeline-footer').remove();
-														if(API.Auth.validate('custom', 'b3_notes', 4)){
-															$('<a class="time bg-warning pointer"><i class="fas fa-trash-alt"></i></a>').insertAfter(item.find('span.time.bg-warning'));
-															item.find('a.pointer').off().click(function(){
-																API.CRUD.delete.show({ keys:data.relations.notes[item.attr('data-id')],key:'id', modal:true, plugin:'notes' },function(note){
-																	item.remove();
-																});
-															});
-														}
-													});
-													break;
+												// case"notes":
+												// 	API.Builder.Timeline.add.card(layout.timeline,details,'sticky-note','warning',function(item){
+												// 		item.find('.timeline-footer').remove();
+												// 		if(API.Auth.validate('custom', 'b3_notes', 4)){
+												// 			$('<a class="time bg-warning pointer"><i class="fas fa-trash-alt"></i></a>').insertAfter(item.find('span.time.bg-warning'));
+												// 			item.find('a.pointer').off().click(function(){
+												// 				API.CRUD.delete.show({ keys:data.relations.notes[item.attr('data-id')],key:'id', modal:true, plugin:'notes' },function(note){
+												// 					item.remove();
+												// 				});
+												// 			});
+												// 		}
+												// 	});
+												// 	break;
 												case"users":
 													API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
 														if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
