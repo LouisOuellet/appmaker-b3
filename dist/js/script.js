@@ -176,6 +176,18 @@ API.Plugins.b3 = {
 														}
 													});
 													break;
+												case"contacts":
+													API.Builder.Timeline.add.contact(layout.timeline,details,'address-card','secondary',function(item){
+														item.find('i').first().addClass('pointer');
+														item.find('i').first().off().click(function(){
+															value = item.attr('data-name').toLowerCase();
+															layout.content.contacts.find('input').val(value);
+															layout.tabs.contacts.find('a').tab('show');
+															layout.content.contacts.find('[data-csv]').hide();
+															layout.content.contacts.find('[data-csv*="'+value+'"]').each(function(){ $(this).show(); });
+														});
+													});
+													break;
 												case"users":
 													API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
 														if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
