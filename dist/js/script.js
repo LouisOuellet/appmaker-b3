@@ -80,31 +80,7 @@ API.Plugins.b3 = {
 							}
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
-								API.GUI.Layouts.details.tab(data,layout,{icon:"fas fa-sticky-note",text:API.Contents.Language["Notes"]},function(data,layout,tab,content){
-									layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-trigger="notes">'+API.Contents.Language['Notes']+'</button>');
-									layout.content.notes = content;
-									layout.tabs.notes = tab;
-									if(API.Auth.validate('custom', 'b3_notes', 2)){
-										content.append('<div><textarea title="Note" name="note" class="form-control"></textarea></div>');
-										content.find('textarea').summernote({
-											toolbar: [
-												['font', ['fontname', 'fontsize']],
-												['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-												['color', ['color']],
-												['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
-											],
-											height: 250,
-										});
-										var html = '';
-										html += '<nav class="navbar navbar-expand-lg navbar-dark bg-dark">';
-											html += '<form class="form-inline my-2 my-lg-0 ml-auto">';
-												html += '<button class="btn btn-warning my-2 my-sm-0" type="button" data-action="reply"><i class="fas fa-sticky-note mr-1"></i>'+API.Contents.Language['Add Note']+'</button>';
-											html += '</form>';
-										html += '</nav>';
-										content.append(html);
-									}
-								});
-								API.Plugins.b3.Events.notes(data,layout);
+								API.Plugins.notes.Layouts.details.tab(data,layout);
 							}
 							// Contacts
 							if(API.Helper.isSet(API.Plugins,['contacts']) && API.Auth.validate('custom', 'b3_contacts', 1)){
@@ -163,19 +139,6 @@ API.Plugins.b3 = {
 										details.owner = relation.owner;
 										if(!API.Helper.isSet(details,['isActive'])||(API.Helper.isSet(details,['isActive']) && details.isActive)||(API.Helper.isSet(details,['isActive']) && !details.isActive && (API.Auth.validate('custom', 'b3_'+relation.relationship+'_isActive', 1)||API.Auth.validate('custom', relation.relationship+'_isActive', 1)))){
 											switch(relation.relationship){
-												// case"notes":
-												// 	API.Builder.Timeline.add.card(layout.timeline,details,'sticky-note','warning',function(item){
-												// 		item.find('.timeline-footer').remove();
-												// 		if(API.Auth.validate('custom', 'b3_notes', 4)){
-												// 			$('<a class="time bg-warning pointer"><i class="fas fa-trash-alt"></i></a>').insertAfter(item.find('span.time.bg-warning'));
-												// 			item.find('a.pointer').off().click(function(){
-												// 				API.CRUD.delete.show({ keys:data.relations.notes[item.attr('data-id')],key:'id', modal:true, plugin:'notes' },function(note){
-												// 					item.remove();
-												// 				});
-												// 			});
-												// 		}
-												// 	});
-												// 	break;
 												case"users":
 													API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
 														if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
@@ -251,67 +214,6 @@ API.Plugins.b3 = {
 				html += '</div>';
 				return html;
 			},
-		},
-	},
-	Events:{
-		notes:function(dataset,layout,options = {},callback = null){
-			if(options instanceof Function){ callback = options; options = {}; }
-			var defaults = {field: "name"};
-			if(API.Helper.isSet(options,['field'])){ defaults.field = options.field; }
-			if(API.Auth.validate('custom', 'b3_notes', 2)){
-				layout.content.notes.find('button').off().click(function(){
-				  if(!layout.content.notes.find('textarea').summernote('isEmpty')){
-				    var note = {
-				      by:API.Contents.Auth.User.id,
-				      content:layout.content.notes.find('textarea').summernote('code'),
-				      relationship:'b3',
-				      link_to:dataset.this.dom.id,
-				      status:dataset.this.raw.status,
-				    };
-				    layout.content.notes.find('textarea').val('');
-				    layout.content.notes.find('textarea').summernote('code','');
-				    layout.content.notes.find('textarea').summernote('destroy');
-				    layout.content.notes.find('textarea').summernote({
-				      toolbar: [
-				        ['font', ['fontname', 'fontsize']],
-				        ['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-				        ['color', ['color']],
-				        ['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
-				      ],
-				      height: 250,
-				    });
-				    API.request('b3','note',{data:note},function(result){
-				      var data = JSON.parse(result);
-				      if(data.success != undefined){
-				        API.Builder.Timeline.add.card(layout.timeline,data.output.note.dom,'sticky-note','warning',function(item){
-				          item.find('.timeline-footer').remove();
-				          if(API.Auth.validate('custom', 'b3_notes', 4)){
-				            $('<a class="time bg-warning pointer"><i class="fas fa-trash-alt"></i></a>').insertAfter(item.find('span.time.bg-warning'));
-										item.find('a.pointer').off().click(function(){
-											API.CRUD.delete.show({ keys:data.output.note.dom,key:'id', modal:true, plugin:'notes' },function(note){
-												item.remove();
-											});
-										});
-				          }
-				        });
-				      }
-				    });
-				    layout.tabs.find('a').first().tab('show');
-				  } else {
-				    layout.content.notes.find('textarea').summernote('destroy');
-				    layout.content.notes.find('textarea').summernote({
-				      toolbar: [
-				        ['font', ['fontname', 'fontsize']],
-				        ['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
-				        ['color', ['color']],
-				        ['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
-				      ],
-				      height: 250,
-				    });
-				    alert(API.Contents.Language['Note is empty']);
-				  }
-				});
-			}
 		},
 	},
 }
