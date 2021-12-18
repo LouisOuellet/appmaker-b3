@@ -57,7 +57,7 @@ API.Plugins.b3 = {
 							var today = new Date();
 							API.Builder.Timeline.add.date(layout.timeline,today);
 							layout.timeline.find('.time-label').first().html('<div class="btn-group"></div>');
-							layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-primary" data-table="all">'+API.Contents.Language['All']+'</button>');
+							layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-primary" data-plugin="all">'+API.Contents.Language['All']+'</button>');
 							var options = {plugin:"b3"}
 							// Debug
 							if(API.debug){
@@ -81,7 +81,7 @@ API.Plugins.b3 = {
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
 								API.GUI.Layouts.details.tab(data,layout,{icon:"fas fa-sticky-note",text:API.Contents.Language["Notes"]},function(data,layout,tab,content){
-									layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-table="notes">'+API.Contents.Language['Notes']+'</button>');
+									layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-plugin="notes">'+API.Contents.Language['Notes']+'</button>');
 									layout.content.notes = content;
 									layout.tabs.notes = tab;
 									if(API.Auth.validate('custom', 'b3_notes', 2)){
@@ -176,18 +176,6 @@ API.Plugins.b3 = {
 														}
 													});
 													break;
-												// case"contacts":
-												// 	API.Builder.Timeline.add.contact(layout.timeline,details,'address-card','secondary',function(item){
-												// 		item.find('i').first().addClass('pointer');
-												// 		item.find('i').first().off().click(function(){
-												// 			value = item.attr('data-name').toLowerCase();
-												// 			layout.content.contacts.find('input').val(value);
-												// 			layout.tabs.contacts.find('a').tab('show');
-												// 			layout.content.contacts.find('[data-csv]').hide();
-												// 			layout.content.contacts.find('[data-csv*="'+value+'"]').each(function(){ $(this).show(); });
-												// 		});
-												// 	});
-												// 	break;
 												case"users":
 													API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
 														if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
@@ -211,24 +199,18 @@ API.Plugins.b3 = {
 							layout.timeline.find('.time-label').first().find('div.btn-group button').off().click(function(){
 								var filters = layout.timeline.find('.time-label').first().find('div.btn-group');
 								var all = filters.find('button').first();
-								if($(this).attr('data-table') != 'all'){
+								if($(this).attr('data-plugin') != 'all'){
 									if(all.hasClass("btn-primary")){ all.removeClass('btn-primary').addClass('btn-secondary'); }
 									if($(this).hasClass("btn-secondary")){ $(this).removeClass('btn-secondary').addClass('btn-primary'); }
 									else { $(this).removeClass('btn-primary').addClass('btn-secondary'); }
-									layout.timeline.find('[data-type]').hide();
+									layout.timeline.find('[data-plugin]').hide();
 									layout.timeline.find('.time-label').first().find('div.btn-group button.btn-primary').each(function(){
-										switch($(this).attr('data-table')){
-											case"notes":var icon = 'sticky-note';break;
-											case"comments":var icon = 'comment';break;
-											case"users":var icon = 'bell';break;
-											case"contacts":var icon = 'address-card';break;
-										}
-										if((icon != '')&&(typeof icon !== 'undefined')){ layout.timeline.find('[data-type="'+icon+'"]').show(); }
+										layout.timeline.find('[data-plugin="'+$(this).attr('data-plugin')+'"]').show();
 									});
 								} else {
 									filters.find('button').removeClass('btn-primary').addClass('btn-secondary');
 									all.removeClass('btn-secondary').addClass('btn-primary');
-									layout.timeline.find('[data-type]').show();
+									layout.timeline.find('[data-plugin]').show();
 								}
 							});
 						});
