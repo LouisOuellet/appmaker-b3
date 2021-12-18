@@ -57,7 +57,7 @@ API.Plugins.b3 = {
 							var today = new Date();
 							API.Builder.Timeline.add.date(layout.timeline,today);
 							layout.timeline.find('.time-label').first().html('<div class="btn-group"></div>');
-							layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-primary" data-plugin="all">'+API.Contents.Language['All']+'</button>');
+							layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-primary" data-trigger="all">'+API.Contents.Language['All']+'</button>');
 							var options = {plugin:"b3"}
 							// Debug
 							if(API.debug){
@@ -81,7 +81,7 @@ API.Plugins.b3 = {
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
 								API.GUI.Layouts.details.tab(data,layout,{icon:"fas fa-sticky-note",text:API.Contents.Language["Notes"]},function(data,layout,tab,content){
-									layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-plugin="notes">'+API.Contents.Language['Notes']+'</button>');
+									layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-trigger="notes">'+API.Contents.Language['Notes']+'</button>');
 									layout.content.notes = content;
 									layout.tabs.notes = tab;
 									if(API.Auth.validate('custom', 'b3_notes', 2)){
@@ -199,13 +199,13 @@ API.Plugins.b3 = {
 							layout.timeline.find('.time-label').first().find('div.btn-group button').off().click(function(){
 								var filters = layout.timeline.find('.time-label').first().find('div.btn-group');
 								var all = filters.find('button').first();
-								if($(this).attr('data-plugin') != 'all'){
+								if($(this).attr('data-trigger') != 'all'){
 									if(all.hasClass("btn-primary")){ all.removeClass('btn-primary').addClass('btn-secondary'); }
 									if($(this).hasClass("btn-secondary")){ $(this).removeClass('btn-secondary').addClass('btn-primary'); }
 									else { $(this).removeClass('btn-primary').addClass('btn-secondary'); }
 									layout.timeline.find('[data-plugin]').hide();
 									layout.timeline.find('.time-label').first().find('div.btn-group button.btn-primary').each(function(){
-										layout.timeline.find('[data-plugin="'+$(this).attr('data-plugin')+'"]').show();
+										layout.timeline.find('[data-plugin="'+$(this).attr('data-trigger')+'"]').show();
 									});
 								} else {
 									filters.find('button').removeClass('btn-primary').addClass('btn-secondary');
