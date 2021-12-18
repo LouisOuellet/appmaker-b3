@@ -108,7 +108,7 @@ API.Plugins.b3 = {
 							}
 							// Contacts
 							if(API.Helper.isSet(API.Plugins,['contacts']) && API.Auth.validate('custom', 'b3_contacts', 1)){
-								API.Plugins.contacts.Layouts.details.Tab(data,layout);
+								API.Plugins.contacts.Layouts.details.tab(data,layout);
 							}
 							// Created
 							options.field = "created";
