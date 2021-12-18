@@ -6,7 +6,7 @@ class b3API extends CRUDAPI {
 			if(!is_array($data)){ $data = json_decode($data, true); }
 			$this->Auth->setLimit(0);
 			// Load Event
-			$get = parent::get('conversations', $data);
+			$get = parent::get('b3', $data);
 			// Build Relations
 			$get = $this->buildRelations($get);
 			// Return
