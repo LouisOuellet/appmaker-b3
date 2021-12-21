@@ -205,7 +205,7 @@ API.Plugins.b3 = {
 							html += '</div>';
 						html += '</div>';
 						layout.timeline.find('div.time-label[data-dateus="'+dateUS+'"]').after(html);
-						var element = layout.timeline.find('[data-plugin][data-id="'+dataset.id+'"]');
+						var element = layout.timeline.find('[data-plugin="b3"][data-id="'+dataset.id+'"]');
 						element.find('time').timeago();
 						var items = layout.timeline.children('div').detach().get();
 						items.sort(function(a, b){
