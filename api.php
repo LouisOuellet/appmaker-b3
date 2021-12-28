@@ -88,11 +88,11 @@ class b3API extends CRUDAPI {
 						$updated = false;
 						$message = $this->Auth->read('messages',$relation['link_to'])->all()[0];
 						foreach(explode(';',trim($message['to'],';')) as $to){
-							if(strpos($to, 'created@') !== false){ $b3['status'] = 2;$updated = true;}
-							if(strpos($to, 'reject@') !== false){ $b3['status'] = 3;$updated = true;}
-							if(strpos($to, 'release@') !== false){ $b3['status'] = 4;$updated = true;}
-							if(strpos($to, 'billed@') !== false){ $b3['status'] = 7;$updated = true;}
-							if(strpos($to, 'done@') !== false){ $b3['status'] = 9;$updated = true;}
+							if(strpos($to, 'created@') !== false && $b3['status'] < 2){$b3['status'] = 2;$updated = true;}
+							if(strpos($to, 'reject@') !== false && $b3['status'] < 3){$b3['status'] = 3;$updated = true;}
+							if(strpos($to, 'release@') !== false && $b3['status'] < 4){$b3['status'] = 4;$updated = true;}
+							if(strpos($to, 'billed@') !== false && $b3['status'] < 7){$b3['status'] = 7;$updated = true;}
+							if(strpos($to, 'done@') !== false && $b3['status'] < 9){$b3['status'] = 9;$updated = true;}
 							if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$to."]"."Updating B3[".$b3['transaction_number']."] status: ".$b3['status']."\n"; }
 						}
 						if($updated){
