@@ -60,7 +60,7 @@ class b3API extends CRUDAPI {
 						'relationship_1' => 'b3',
 						'link_to_1' => $b3['id'],
 						'relationship_2' => 'statuses',
-						'link_to_2' => $status['id'],
+						'link_to_2' => $status[0]['id'],
 					]);
 				}
 				$action = "Creating";
@@ -101,9 +101,9 @@ class b3API extends CRUDAPI {
 									'relationship_1' => 'b3',
 									'link_to_1' => $b3['id'],
 									'relationship_2' => 'statuses',
-									'link_to_2' => $status['id'],
+									'link_to_2' => $status[0]['id'],
 								]);
-								$this->Auth->update('b3',$b3);
+								$this->Auth->update('b3',$b3,$b3['id']);
 							}
 						}
 					}
