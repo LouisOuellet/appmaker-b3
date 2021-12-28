@@ -78,6 +78,10 @@ API.Plugins.b3 = {
 									});
 								});
 							}
+							// Status
+							if(API.Helper.isSet(API.Plugins,['statuses']) && API.Auth.validate('custom', 'b3_statuses', 1)){
+								API.Plugins.statuses.Layouts.details.detail(data,layout);
+							}
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
 								API.Plugins.notes.Layouts.details.tab(data,layout);
