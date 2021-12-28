@@ -93,6 +93,7 @@ class b3API extends CRUDAPI {
 							if(strpos($to, 'release@') !== false){ $b3['status'] = 4;$updated = true;}
 							if(strpos($to, 'billed@') !== false){ $b3['status'] = 7;$updated = true;}
 							if(strpos($to, 'done@') !== false){ $b3['status'] = 9;$updated = true;}
+							if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$b3['transaction_number']."]"."Updating B3's status: ".$b3['status']."\n"; }
 						}
 						if($updated){
 							$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
@@ -104,6 +105,7 @@ class b3API extends CRUDAPI {
 									'link_to_2' => $status[0]['id'],
 								]);
 								$this->Auth->update('b3',$b3,$b3['id']);
+								if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$b3['transaction_number']."]"."Updated\n"; }
 							}
 						}
 					}
