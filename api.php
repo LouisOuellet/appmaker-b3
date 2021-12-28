@@ -90,10 +90,11 @@ class b3API extends CRUDAPI {
 							$message = $message[0];
 							$current = $b3['status'];
 							var_dump([
-								'to' => $message['to'],
-								'sender' => $message['sender'],
-								'from' => $message['from'],
 								'account' => $message['account'],
+								'sender' => $message['sender'],
+								'id' => $message['id'],
+								'to' => $message['to'],
+								'from' => $message['from'],
 								'created' => strpos($message['to'], 'created@') !== false,
 								'reject' => strpos($message['to'], 'reject@') !== false,
 								'release' => strpos($message['to'], 'release@') !== false,
