@@ -92,7 +92,9 @@ class b3API extends CRUDAPI {
 							var_dump([
 								'account' => $message['account'],
 								'sender' => $message['sender'],
+								'b3' => $b3['id'],
 								'id' => $message['id'],
+								'link_to' => $relation['link_to'],
 								'to' => $message['to'],
 								'from' => $message['from'],
 								'created' => strpos($message['to'], 'created@') !== false,
