@@ -150,9 +150,7 @@ API.Plugins.b3 = {
 				var checkExist = setInterval(function() {
 					if(layout.timeline.find('div.time-label[data-dateus="'+dateUS+'"]').length > 0){
 						clearInterval(checkExist);
-						if(API.Helper.isSet(layout,['timeline']) && layout.timeline.find('.time-label').first().find('div.btn-group').find('button[data-trigger="b3"]').length <= 0){
-							layout.timeline.find('.time-label').first().find('div.btn-group').append('<button class="btn btn-secondary" data-trigger="b3">'+API.Contents.Language['B3']+'</button>');
-						}
+						API.Builder.Timeline.add.filter(layout,'b3','B3');
 						var html = '';
 						html += '<div data-plugin="b3" data-id="'+dataset.id+'" data-b3="'+dataset.transaction_number+'" data-date="'+dateItem.getTime()+'">';
 							html += '<i class="fas fa-'+defaults.icon+' bg-'+defaults.color+'"></i>';
