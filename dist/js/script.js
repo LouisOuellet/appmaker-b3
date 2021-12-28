@@ -129,7 +129,7 @@ API.Plugins.b3 = {
 								});
 							});
 							// Timeline
-							API.Builder.Timeline.render(data,layout);
+							API.Builder.Timeline.render(data,layout,{prefix:"b3_"});
 						});
 					});
 				}
