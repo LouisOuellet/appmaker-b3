@@ -129,53 +129,7 @@ API.Plugins.b3 = {
 								});
 							});
 							// Timeline
-							for(var [rid, relations] of Object.entries(data.relationships)){
-								for(var [uid, relation] of Object.entries(relations)){
-									if(API.Helper.isSet(API.Plugins,[relation.relationship]) && (API.Auth.validate('custom', 'b3_'+relation.relationship, 1) || relation.owner == API.Contents.Auth.User.username) && API.Helper.isSet(data,['relations',relation.relationship,relation.link_to])){
-										var details = {};
-										for(var [key, value] of Object.entries(data.relations[relation.relationship][relation.link_to])){ details[key] = value; }
-										if(typeof relation.statuses !== 'undefined'){ details.status = data.details.statuses.dom[relation.statuses].order; }
-										details.created = relation.created;
-										details.owner = relation.owner;
-										if(!API.Helper.isSet(details,['isActive'])||(API.Helper.isSet(details,['isActive']) && details.isActive)||(API.Helper.isSet(details,['isActive']) && !details.isActive && (API.Auth.validate('custom', 'b3_'+relation.relationship+'_isActive', 1)||API.Auth.validate('custom', relation.relationship+'_isActive', 1)))){
-											switch(relation.relationship){
-												case"users":
-													API.Builder.Timeline.add.subscription(layout.timeline,details,'bell','lightblue',function(item){
-														if((API.Auth.validate('plugin','users',1))&&(API.Auth.validate('view','details',1,'users'))){
-															item.find('i').first().addClass('pointer');
-															item.find('i').first().off().click(function(){
-																API.CRUD.read.show({ key:'username',keys:data.details.users.dom[item.attr('data-id')], href:"?p=users&v=details&id="+data.details.users.dom[item.attr('data-id')].username, modal:true });
-															});
-														}
-													});
-													break;
-												default:
-													if(API.Helper.isSet(API,['Plugins',relation.relationship,'Timeline','object'])){
-														API.Plugins[relation.relationship].Timeline.object(details,layout);
-													}
-													break;
-											}
-										}
-									}
-								}
-							}
-							layout.timeline.find('.time-label').first().find('div.btn-group button').off().click(function(){
-								var filters = layout.timeline.find('.time-label').first().find('div.btn-group');
-								var all = filters.find('button').first();
-								if($(this).attr('data-trigger') != 'all'){
-									if(all.hasClass("btn-primary")){ all.removeClass('btn-primary').addClass('btn-secondary'); }
-									if($(this).hasClass("btn-secondary")){ $(this).removeClass('btn-secondary').addClass('btn-primary'); }
-									else { $(this).removeClass('btn-primary').addClass('btn-secondary'); }
-									layout.timeline.find('[data-plugin]').hide();
-									layout.timeline.find('.time-label').first().find('div.btn-group button.btn-primary').each(function(){
-										layout.timeline.find('[data-plugin="'+$(this).attr('data-trigger')+'"]').show();
-									});
-								} else {
-									filters.find('button').removeClass('btn-primary').addClass('btn-secondary');
-									all.removeClass('btn-secondary').addClass('btn-primary');
-									layout.timeline.find('[data-plugin]').show();
-								}
-							});
+							API.Builder.Timeline.render(data,layout);
 						});
 					});
 				}
