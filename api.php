@@ -85,25 +85,28 @@ class b3API extends CRUDAPI {
 				if($newID < $id){ $newID = $id; }
 				foreach($relationship as $relation){
 					if($relation['relationship'] == 'messages'){
-						$updated = false;
-						$message = $this->Auth->read('messages',$relation['link_to'])->all()[0];
-						if(strpos($message['to'], 'created@') !== false && $b3['status'] < 2){$b3['status'] = 2;$updated = true;}
-						if(strpos($message['to'], 'reject@') !== false && $b3['status'] < 3){$b3['status'] = 3;$updated = true;}
-						if(strpos($message['to'], 'release@') !== false && $b3['status'] < 4){$b3['status'] = 4;$updated = true;}
-						if(strpos($message['to'], 'billed@') !== false && $b3['status'] < 7){$b3['status'] = 7;$updated = true;}
-						if(strpos($message['to'], 'done@') !== false && $b3['status'] < 9){$b3['status'] = 9;$updated = true;}
-						if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] status: ".$b3['status']."\n"; }
-						if($updated){
-							$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
-							if(!empty($status)){
-								$this->createRelationship([
-									'relationship_1' => 'b3',
-									'link_to_1' => $b3['id'],
-									'relationship_2' => 'statuses',
-									'link_to_2' => $status[0]['id'],
-								]);
-								$this->Auth->update('b3',$b3,$b3['id']);
-								if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$b3['transaction_number']."]"."Updated\n"; }
+						$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
+						if(!empty($message)){
+							$message = $message[0];
+							$current = $b3['status'];
+							if(strpos($message['to'], 'created@') !== false && $current < 2){$b3['status'] = 2;}
+							if(strpos($message['to'], 'reject@') !== false && $current < 3){$b3['status'] = 3;}
+							if(strpos($message['to'], 'release@') !== false && $current < 4){$b3['status'] = 4;}
+							if(strpos($message['to'], 'billed@') !== false && $current < 7){$b3['status'] = 7;}
+							if(strpos($message['to'], 'done@') !== false && $current < 9){$b3['status'] = 9;}
+							if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
+							if($current != $b3['status']){
+								$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
+								if(!empty($status)){
+									$this->createRelationship([
+										'relationship_1' => 'b3',
+										'link_to_1' => $b3['id'],
+										'relationship_2' => 'statuses',
+										'link_to_2' => $status[0]['id'],
+									]);
+									$this->Auth->update('b3',$b3,$b3['id']);
+									if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$b3['transaction_number']."]"."Updated\n"; }
+								}
 							}
 						}
 					}
