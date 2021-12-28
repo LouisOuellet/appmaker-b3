@@ -51,8 +51,18 @@ class b3API extends CRUDAPI {
 				$b3 = $b3[0];
 				$action = "Updating";
 			} else {
+				$metaData['status'] = 1;
 				$b3ID = $this->Auth->create('b3',$metaData);
 				$b3 = $this->Auth->read('b3',$b3ID)->all()[0];
+				$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
+				if(!empty($status)){
+					$this->createRelationship([
+						'relationship_1' => 'b3',
+						'link_to_1' => $b3['id'],
+						'relationship_2' => 'statuses',
+						'link_to_2' => $status['id'],
+					]);
+				}
 				$action = "Creating";
 			}
 			// Load Relationships
