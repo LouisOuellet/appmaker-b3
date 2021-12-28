@@ -89,27 +89,27 @@ class b3API extends CRUDAPI {
 						if(!empty($message)){
 							$message = $message[0];
 							$current = $b3['status'];
-							var_dump([
-								'account' => $message['account'],
-								'sender' => $message['sender'],
-								'b3' => $b3['id'],
-								'id' => $message['id'],
-								'link_to' => $relation['link_to'],
-								'to' => $message['to'],
-								'from' => $message['from'],
-								'created' => strpos($message['to'], 'created@') !== false,
-								'reject' => strpos($message['to'], 'reject@') !== false,
-								'release' => strpos($message['to'], 'release@') !== false,
-								'billed' => strpos($message['to'], 'billed@') !== false,
-								'done' => strpos($message['to'], 'done@') !== false,
-								'current' => $current < 2,
-							]);
+							// var_dump([
+							// 	'account' => $message['account'],
+							// 	'sender' => $message['sender'],
+							// 	'b3' => $b3['id'],
+							// 	'id' => $message['id'],
+							// 	'link_to' => $relation['link_to'],
+							// 	'to' => $message['to'],
+							// 	'from' => $message['from'],
+							// 	'created' => strpos($message['to'], 'created@') !== false,
+							// 	'reject' => strpos($message['to'], 'reject@') !== false,
+							// 	'release' => strpos($message['to'], 'release@') !== false,
+							// 	'billed' => strpos($message['to'], 'billed@') !== false,
+							// 	'done' => strpos($message['to'], 'done@') !== false,
+							// 	'current' => $current < 2,
+							// ]);
 							if(strpos($message['to'], 'created@') !== false && $current < 2){$b3['status'] = 2;}
 							if(strpos($message['to'], 'reject@') !== false && $current < 3){$b3['status'] = 3;}
 							if(strpos($message['to'], 'release@') !== false && $current < 4){$b3['status'] = 4;}
 							if(strpos($message['to'], 'billed@') !== false && $current < 7){$b3['status'] = 7;}
 							if(strpos($message['to'], 'done@') !== false && $current < 9){$b3['status'] = 9;}
-							if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
+							if(isset($this->Settings['debug']) && $this->Settings['debug'] && $current != $b3['status']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
 							if($current != $b3['status']){
 								$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
 								if(!empty($status)){
@@ -120,7 +120,6 @@ class b3API extends CRUDAPI {
 										'link_to_2' => $status[0]['id'],
 									]);
 									$this->Auth->update('b3',$b3,$b3['id']);
-									if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$b3['transaction_number']."]"."Updated\n"; }
 								}
 							}
 						}
