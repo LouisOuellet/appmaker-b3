@@ -151,8 +151,7 @@ API.Plugins.b3 = {
 		object:function(dataset,layout,options = {},callback = null){
 			if(options instanceof Function){ callback = options; options = {}; }
 			var defaults = {icon: API.Plugins.b3.Timeline.icon,color: "secondary"};
-			if(API.Helper.isSet(options,['icon'])){ defaults.icon = options.icon; }
-			if(API.Helper.isSet(options,['color'])){ defaults.color = options.color; }
+			for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 			if(typeof dataset.id !== 'undefined'){
 				var dateItem = new Date(dataset.created);
 				var dateUS = dateItem.toLocaleDateString('en-US', {day: 'numeric', month: 'short', year: 'numeric'}).replace(/ /g, '-').replace(/,/g, '');
@@ -185,40 +184,6 @@ API.Plugins.b3 = {
 					}
 				}, 100);
 			}
-		},
-	},
-	GUI:{
-		buttons:{
-			details:function(dataset,options = {}){
-				var defaults = {
-					icon:{details:"fas fa-building",remove:"fas fa-unlink"},
-					action:{details:"details",remove:"unlink"},
-					color:{details:"primary",remove:"danger"},
-					key:"name",
-					id:"id",
-					content:"",
-					remove:false,
-				};
-				if(API.Helper.isSet(options,['icon','details'])){ defaults.icon.details = options.icon.details; }
-				if(API.Helper.isSet(options,['icon','remove'])){ defaults.icon.remove = options.icon.remove; }
-				if(API.Helper.isSet(options,['color','details'])){ defaults.color.details = options.color.details; }
-				if(API.Helper.isSet(options,['color','remove'])){ defaults.color.remove = options.color.remove; }
-				if(API.Helper.isSet(options,['action','details'])){ defaults.action.details = options.action.details; }
-				if(API.Helper.isSet(options,['action','remove'])){ defaults.action.remove = options.action.remove; }
-				if(API.Helper.isSet(options,['key'])){ defaults.key = options.key; }
-				if(API.Helper.isSet(options,['id'])){ defaults.id = options.id; }
-				if(API.Helper.isSet(options,['remove'])){ defaults.remove = options.remove; }
-				if(API.Helper.isSet(options,['content'])){ defaults.content = options.content; }
-				else { defaults.content = dataset[defaults.key]; }
-				var html = '';
-				html += '<div class="btn-group m-1" data-id="'+dataset[defaults.id]+'">';
-					html += '<button type="button" class="btn btn-xs bg-'+defaults.color.details+'" data-id="'+dataset[defaults.id]+'" data-action="'+defaults.action.details+'"><i class="'+defaults.icon.details+' mr-1"></i>'+defaults.content+'</button>';
-					if(defaults.remove){
-						html += '<button type="button" class="btn btn-xs bg-'+defaults.color.remove+'" data-id="'+dataset[[defaults.id]]+'" data-action="'+defaults.action.remove+'"><i class="'+defaults.icon.remove+'"></i></button>';
-					}
-				html += '</div>';
-				return html;
-			},
 		},
 	},
 }
