@@ -83,7 +83,7 @@ API.Plugins.b3 = {
 								API.Plugins.statuses.Layouts.details.detail(data,layout);
 							}
 							// Organizations
-							if(API.Helper.isSet(API.Plugins,['organizations']) && API.Auth.validate('custom', 'b3_statuses', 1)){
+							if(API.Helper.isSet(API.Plugins,['organizations']) && API.Auth.validate('custom', 'b3_organizations', 1)){
 								API.Plugins.organizations.Layouts.details.detail(data,layout);
 							}
 							// Notes
