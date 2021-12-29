@@ -78,6 +78,8 @@ API.Plugins.b3 = {
 									});
 								});
 							}
+							// Transaction Number
+							API.GUI.Layouts.details.data(data,layout,{field:"transaction_number"});
 							// Status
 							if(API.Helper.isSet(API.Plugins,['statuses']) && API.Auth.validate('custom', 'b3_statuses', 1)){
 								API.Plugins.statuses.Layouts.details.detail(data,layout);
