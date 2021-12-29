@@ -82,6 +82,10 @@ API.Plugins.b3 = {
 							if(API.Helper.isSet(API.Plugins,['statuses']) && API.Auth.validate('custom', 'b3_statuses', 1)){
 								API.Plugins.statuses.Layouts.details.detail(data,layout);
 							}
+							// Organizations
+							if(API.Helper.isSet(API.Plugins,['organizations']) && API.Auth.validate('custom', 'b3_statuses', 1)){
+								API.Plugins.organizations.Layouts.details.detail(data,layout);
+							}
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
 								API.Plugins.notes.Layouts.details.tab(data,layout);
