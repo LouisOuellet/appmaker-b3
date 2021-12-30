@@ -96,6 +96,10 @@ API.Plugins.b3 = {
 							if(API.Helper.isSet(API.Plugins,['contacts']) && API.Auth.validate('custom', 'b3_contacts', 1)){
 								API.Plugins.contacts.Layouts.details.tab(data,layout);
 							}
+							// Files
+							if(API.Helper.isSet(API.Plugins,['files']) && API.Auth.validate('custom', 'conversations_files', 1)){
+								API.Plugins.files.Layouts.details.tab(data,layout);
+							}
 							// Created
 							options.field = "created";
 							options.td = '<td><time class="timeago" datetime="'+data.this.raw.created.replace(/ /g, "T")+'" title="'+data.this.raw.created+'">'+data.this.raw.created+'</time></td>';
