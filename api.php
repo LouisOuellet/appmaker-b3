@@ -89,7 +89,7 @@ class b3API extends CRUDAPI {
 						if(!empty($message)){
 							$message = $message[0];
 							$current = $b3['status'];
-							if(strpos($message['to'], 'created@') !== false && $current < 3){$b3['status'] = 2;}
+							if(strpos($message['to'], 'create@') !== false && $current < 3){$b3['status'] = 2;}
 							if(strpos($message['to'], 'reject@') !== false && $current < 3){$b3['status'] = 3;}
 							if(strpos($message['to'], 'release@') !== false && $current < 4){$b3['status'] = 4;}
 							if(strpos($message['to'], 'billed@') !== false && $current < 7){$b3['status'] = 7;}
