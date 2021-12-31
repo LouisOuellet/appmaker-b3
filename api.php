@@ -89,11 +89,12 @@ class b3API extends CRUDAPI {
 						if(!empty($message)){
 							$message = $message[0];
 							$current = $b3['status'];
-							if(strpos($message['to'], 'create@') !== false && $current < 3){$b3['status'] = 2;}
-							if(strpos($message['to'], 'reject@') !== false && $current < 3){$b3['status'] = 3;}
-							if(strpos($message['to'], 'release@') !== false && $current < 4){$b3['status'] = 4;}
-							if(strpos($message['to'], 'billed@') !== false && $current < 7){$b3['status'] = 7;}
-							if(strpos($message['to'], 'done@') !== false && $current < 9){$b3['status'] = 9;}
+							if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
+							if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
+							if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
+							if(strpos($message['to'], 'billed@') !== false && $current < 9){$b3['status'] = 9;}
+							if(strpos($message['to'], 'done@') !== false && $current < 11){$b3['status'] = 11;}
+							if(strpos($message['to'], 'cancel@') !== false && $current < 12){$b3['status'] = 12;}
 							if(isset($this->Settings['debug']) && $this->Settings['debug'] && $current != $b3['status']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
 							if($current != $b3['status']){
 								$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();

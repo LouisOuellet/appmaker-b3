@@ -78,6 +78,16 @@ API.Plugins.b3 = {
 									});
 								});
 							}
+							// Review
+							if(API.Auth.validate('custom', 'b3_review', 1)){
+								API.GUI.Layouts.details.control(data,layout,{color:"success",icon:"fas fa-search-location",text:API.Contents.Language["Review"]},function(data,layout,button){
+									button.off().click(function(){
+										// API.request('b3','review',{ data:data.this.raw },function(){
+										// 	API.Plugins.b3.load.details();
+										// });
+									});
+								});
+							}
 							// Transaction Number
 							API.GUI.Layouts.details.data(data,layout,{field:"transaction_number"});
 							// Status

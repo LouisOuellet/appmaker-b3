@@ -55,5 +55,10 @@
 		"Released": "Released",
 		"Billed": "Billed",
 		"Rejected": "Rejected",
-		"Transmitted": "Transmitted"
+		"Transmitted": "Transmitted",
+		"Cadex": "Cadex",
+		"Billing": "Billing",
+		"Missing Documents": "Missing Documents",
+		"Review": "Review",
+		"Cancelled": "Cancelled"
 }
