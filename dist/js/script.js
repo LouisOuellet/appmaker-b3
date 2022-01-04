@@ -162,6 +162,7 @@ API.Plugins.b3 = {
 		if(options instanceof Function){ callback = options; options = {}; }
 		var defaults = {icon: API.Plugins.b3.Timeline.icon,color: "secondary"};
 		for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+		var url = new URL(window.location.href);
 		API.Builder.modal($('body'), {
 			title:'Review',
 			icon:'review',
@@ -209,8 +210,8 @@ API.Plugins.b3 = {
 				console.log(action,data,layout);
 				if(callback != null){ callback(action,data,layout); }
 			});
+			modal.modal('show');
 		});
-		modal.modal('show');
 	},
 	Timeline:{
 		icon:"file-invoice",
