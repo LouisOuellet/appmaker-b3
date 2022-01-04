@@ -82,9 +82,7 @@ API.Plugins.b3 = {
 							if(API.Auth.validate('custom', 'b3_review', 1)){
 								API.GUI.Layouts.details.control(data,layout,{color:"success",icon:"fas fa-search-location",text:API.Contents.Language["Review"]},function(data,layout,button){
 									button.off().click(function(){
-										// API.request('b3','review',{ data:data.this.raw },function(){
-										// 	API.Plugins.b3.load.details();
-										// });
+										API.Plugins.b3.review(data,layout);
 									});
 								});
 							}
@@ -159,6 +157,32 @@ API.Plugins.b3 = {
 				}
 			});
 		},
+	},
+	review:function(data,layout,options = {},callback = null){
+		if(options instanceof Function){ callback = options; options = {}; }
+		var defaults = {icon: API.Plugins.b3.Timeline.icon,color: "secondary"};
+		for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
+		API.Builder.modal($('body'), {
+			title:'Review',
+			icon:'review',
+			zindex:'top',
+			css:{ header: "bg-success", body: "p-3"},
+		}, function(modal){
+			modal.on('hide.bs.modal',function(){ modal.remove(); });
+			var dialog = modal.find('.modal-dialog');
+			var header = modal.find('.modal-header');
+			var body = modal.find('.modal-body');
+			var footer = modal.find('.modal-footer');
+			header.find('button[data-control="hide"]').remove();
+			header.find('button[data-control="update"]').remove();
+			footer.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-link mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
+			footer.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
+			footer.find('button[data-action]').off().click(function(){
+				var action = $(this).attr('data-action');
+				if(callback != null){ callback(action,data,layout); }
+			});
+		});
+		modal.modal('show');
 	},
 	Timeline:{
 		icon:"file-invoice",

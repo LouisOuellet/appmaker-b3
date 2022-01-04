@@ -60,5 +60,7 @@
 		"Billing": "Billing",
 		"Missing Documents": "Missing Documents",
 		"Review": "Review",
-		"Cancelled": "Cancelled"
+		"Cancelled": "Cancelled",
+		"To Correct": "To Correct",
+		"Reviewed": "Reviewed"
 }
