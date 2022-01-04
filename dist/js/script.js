@@ -203,9 +203,11 @@ API.Plugins.b3 = {
 				],
 				height: 250,
 			});
-			footer.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-pencil-alt mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
-			footer.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
-			footer.find('button[data-action]').off().click(function(){
+			footer.append('<div class="btn-group"></div>');
+			var controls = footer.find('div.btn-group');
+			controls.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-pencil-alt mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
+			controls.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
+			controls.find('button[data-action]').off().click(function(){
 				var action = $(this).attr('data-action');
 				console.log(action,data,layout);
 				if(callback != null){ callback(action,data,layout); }
