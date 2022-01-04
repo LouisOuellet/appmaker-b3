@@ -121,6 +121,13 @@ class b3API extends CRUDAPI {
 								'relationship_2' => 'organizations',
 								'link_to_2' => $organization['id'],
 							]);
+							// Link the record
+							$this->createRelationship([
+								'relationship_1' => 'b3',
+								'link_to_1' => $b3['id'],
+								'relationship_2' => $table,
+								'link_to_2' => $record['id'],
+							]);
 							// Copy Relationship from record
 							$this->copyRelationships($table,$record['id'],'b3',$b3['id']);
 							// Reload Relationships
