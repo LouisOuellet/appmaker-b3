@@ -208,9 +208,62 @@ API.Plugins.b3 = {
 			controls.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-pencil-alt mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
 			controls.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
 			controls.find('button[data-action]').off().click(function(){
+				if(notes.summernote('isEmpty')){
+					notes.summernote('destroy');
+					notes.summernote({
+						toolbar: [
+							['font', ['fontname', 'fontsize']],
+							['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+							['color', ['color']],
+							['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
+						],
+						height: 250,
+					});
+				} else {
+					var note = notes.summernote('code');
+					notes.val('');
+					notes.summernote('code','');
+					notes.summernote('destroy');
+					notes.summernote({
+						toolbar: [
+							['font', ['fontname', 'fontsize']],
+							['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+							['color', ['color']],
+							['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
+						],
+						code: note,
+						height: 250,
+					});
+				}
 				var action = $(this).attr('data-action');
-				console.log(action,data,layout);
-				if(callback != null){ callback(action,data,layout); }
+				if(action == "corrections"){
+					if(note != undefined && note != ''){
+						API.request(url.searchParams.get("p"),'note',{data:note},function(result){
+							var dataset = JSON.parse(result);
+							if(dataset.success != undefined){
+								API.Plugins.notes.Timeline.object(dataset.output.note.dom,layout);
+								// API.request(url.searchParams.get("p"),'note',{data:note},function(result){
+								// 	var dataset = JSON.parse(result);
+								// 	if(dataset.success != undefined){
+								// 		API.Plugins.notes.Timeline.object(dataset.output.note.dom,layout);
+								// 	}
+								// });
+							}
+						});
+						console.log(action,data,layout);
+						if(callback != null){ callback(action,data,layout); }
+					} else {
+						alert('Please specify what corrections are needed.');
+					}
+				}
+				if(action == "reviewed"){
+					console.log(action,data,layout);
+					// if(note != undefined && note != ''){
+					// 	if(callback != null){ callback(action,data,layout); }
+					// } else {
+					// 	alert('Please specify what corrections are needed.');
+					// }
+				}
 			});
 			modal.modal('show');
 		});
