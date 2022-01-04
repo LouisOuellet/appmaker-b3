@@ -19,9 +19,9 @@ class b3API extends CRUDAPI {
 		if(isset($this->Settings['plugins']['conversations']['status']) && $this->Settings['plugins']['conversations']['status']){
 			$scan['conversations'] = $this->Auth->query('SELECT * FROM `conversations` WHERE `meta` LIKE ? AND `hasNew` = ?','%TR:%','true')->fetchAll()->all();
 		}
-		if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
-			$scan['messages'] = $this->Auth->query('SELECT * FROM `messages` WHERE `meta` NOT LIKE ?','%scanB3%')->fetchAll()->all();
-		}
+		// if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
+		// 	$scan['messages'] = $this->Auth->query('SELECT * FROM `messages` WHERE `meta` NOT LIKE ?','%scanB3%')->fetchAll()->all();
+		// }
 		foreach($scan as $table => $records){
 			if(!empty($records)){
 				foreach($records as $record){
