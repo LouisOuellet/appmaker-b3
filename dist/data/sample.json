@@ -3,7 +3,7 @@
         {
             "id": 100000,
             "created": "2022-01-04 11:00:14",
-            "modified": "2022-01-04 11:00:14",
+            "modified": "2022-01-04 11:51:58",
             "owner": "1",
             "updated_by": "1",
             "vendor_code": null,
@@ -12,7 +12,7 @@
             "exchange_rate": null,
             "invoice_number": null,
             "transaction_number": "10013000772204",
-            "status": "1",
+            "status": "6",
             "cargo_control_number": null,
             "vfd_of_shipment": null,
             "b3_gst_amount": null,
