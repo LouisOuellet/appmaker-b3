@@ -9,6 +9,7 @@ class b3API extends CRUDAPI {
 			$get = parent::get('b3', $data);
 			// Build Relations
 			$get = $this->buildRelations($get);
+			var_dump($get);
 			// Return
 			return $get;
 		}
