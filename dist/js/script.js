@@ -221,6 +221,12 @@ API.Plugins.b3 = {
 					});
 				} else {
 					var note = notes.summernote('code');
+					var note = {
+						by:API.Contents.Auth.User.id,
+						content:notes.summernote('code'),
+						relationship:url.searchParams.get("p"),
+						link_to:data.this.raw.id,
+					};
 					notes.val('');
 					notes.summernote('code','');
 					notes.summernote('destroy');
@@ -239,30 +245,52 @@ API.Plugins.b3 = {
 				if(action == "corrections"){
 					if(note != undefined && note != ''){
 						API.request(url.searchParams.get("p"),'note',{data:note},function(result){
-							var dataset = JSON.parse(result);
-							if(dataset.success != undefined){
-								API.Plugins.notes.Timeline.object(dataset.output.note.dom,layout);
-								// API.request(url.searchParams.get("p"),'note',{data:note},function(result){
-								// 	var dataset = JSON.parse(result);
-								// 	if(dataset.success != undefined){
-								// 		API.Plugins.notes.Timeline.object(dataset.output.note.dom,layout);
-								// 	}
-								// });
+							var noteData = JSON.parse(result);
+							if(noteData.success != undefined){
+								API.Plugins.notes.Timeline.object(noteData.output.note.dom,layout);
+								data.this.raw.status = 7;
+								data.this.dom.status = 7;
+								API.request('b3','review',{data:data.this.raw},function(result){
+									var b3Data = JSON.parse(result);
+									if(b3Data.success != undefined){
+										API.Plugins.statuses.update(data,layout);
+										if(callback != null){ callback(action,data,layout); }
+									}
+								});
 							}
 						});
-						console.log(action,data,layout);
-						if(callback != null){ callback(action,data,layout); }
 					} else {
 						alert('Please specify what corrections are needed.');
 					}
 				}
 				if(action == "reviewed"){
-					console.log(action,data,layout);
-					// if(note != undefined && note != ''){
-					// 	if(callback != null){ callback(action,data,layout); }
-					// } else {
-					// 	alert('Please specify what corrections are needed.');
-					// }
+					if(note != undefined && note != ''){
+						API.request(url.searchParams.get("p"),'note',{data:note},function(result){
+							var noteData = JSON.parse(result);
+							if(noteData.success != undefined){
+								API.Plugins.notes.Timeline.object(noteData.output.note.dom,layout);
+								data.this.raw.status = 8;
+								data.this.dom.status = 8;
+								API.request('b3','review',{data:data.this.raw},function(result){
+									var b3Data = JSON.parse(result);
+									if(b3Data.success != undefined){
+										API.Plugins.statuses.update(data,layout);
+										if(callback != null){ callback(action,data,layout); }
+									}
+								});
+							}
+						});
+					} else {
+						data.this.raw.status = 8;
+						data.this.dom.status = 8;
+						API.request('b3','review',{data:data.this.raw},function(result){
+							var b3Data = JSON.parse(result);
+							if(b3Data.success != undefined){
+								API.Plugins.statuses.update(data,layout);
+								if(callback != null){ callback(action,data,layout); }
+							}
+						});
+					}
 				}
 			});
 			modal.modal('show');
