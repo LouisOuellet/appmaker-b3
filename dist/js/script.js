@@ -177,7 +177,7 @@ API.Plugins.b3 = {
 			header.find('button[data-control="hide"]').remove();
 			header.find('button[data-control="update"]').remove();
 			body.append('<div class="row" data-content="files"></div>');
-			body.append('<div class="row" data-content="notes"><textarea title="Note" name="note" class="form-control"></textarea></div>');
+			body.append('<div class="row" data-content="notes"><div class="col-12"><textarea title="Note" name="note" class="form-control"></textarea></div></div>');
 			var files = body.find('div[data-content="files"]');
 			var notes = body.find('div[data-content="notes"]').find('textarea');
 			if(API.Helper.isSet(data,['relations','files'])){
