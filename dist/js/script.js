@@ -175,7 +175,7 @@ API.Plugins.b3 = {
 			var footer = modal.find('.modal-footer');
 			header.find('button[data-control="hide"]').remove();
 			header.find('button[data-control="update"]').remove();
-			footer.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-link mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
+			footer.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-pencil-alt mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
 			footer.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
 			footer.find('button[data-action]').off().click(function(){
 				var action = $(this).attr('data-action');
