@@ -8,7 +8,7 @@ class b3API extends CRUDAPI {
 			// Load Event
 			$get = parent::get('b3', $data);
 			// Build Relations
-			$get = $this->buildRelations($get);
+			// $get = $this->buildRelations($get);
 			// Return
 			return $get;
 		}
