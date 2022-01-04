@@ -166,7 +166,7 @@ API.Plugins.b3 = {
 			title:'Review',
 			icon:'review',
 			zindex:'top',
-			css:{ header: "bg-success", body: "p-3"},
+			css:{ dialog: "modal-lg", header: "bg-success", body: "p-3"},
 		}, function(modal){
 			modal.on('hide.bs.modal',function(){ modal.remove(); });
 			var dialog = modal.find('.modal-dialog');
@@ -175,10 +175,38 @@ API.Plugins.b3 = {
 			var footer = modal.find('.modal-footer');
 			header.find('button[data-control="hide"]').remove();
 			header.find('button[data-control="update"]').remove();
+			body.append('<div class="row" data-content="files"></div>');
+			body.append('<div class="row" data-content="notes"><textarea title="Note" name="note" class="form-control"></textarea></div>');
+			var files = body.find('div[data-content="files"]');
+			var notes = body.find('div[data-content="notes"]').find('textarea');
+			if(API.Helper.isSet(data,['relations','files'])){
+				for(var [id, file] of Object.entries(data.relations.files)){
+					files.append(API.Plugins.files.Layouts.details.GUI.button(file,{download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 1),download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 4)}));
+					files.find('button[data-action="view"').off().click(function(){
+						API.Plugins.files.view($(this).attr('data-id'));
+					});
+					files.find('button[data-action="download"]').off().click(function(){
+						API.Plugins.files.download($(this).attr('data-id'));
+					});
+					files.find('button[data-action="delete"]').off().click(function(){
+						API.Plugins.files.delete($(this).attr('data-id'),$(this).attr('data-name'),layout);
+					});
+				}
+			}
+			notes.summernote({
+				toolbar: [
+					['font', ['fontname', 'fontsize']],
+					['style', ['bold', 'italic', 'underline', 'strikethrough', 'superscript', 'subscript', 'clear']],
+					['color', ['color']],
+					['paragraph', ['style', 'ul', 'ol', 'paragraph', 'height']],
+				],
+				height: 250,
+			});
 			footer.append('<button class="btn btn-warning" data-action="corrections"><i class="fas fa-pencil-alt mr-1"></i>'+API.Contents.Language['To Correct']+'</button>');
 			footer.append('<button class="btn btn-success" data-action="reviewed"><i class="fas fa-check mr-1"></i>'+API.Contents.Language['Reviewed']+'</button>');
 			footer.find('button[data-action]').off().click(function(){
 				var action = $(this).attr('data-action');
+				console.log(action,data,layout);
 				if(callback != null){ callback(action,data,layout); }
 			});
 		});
