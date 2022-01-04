@@ -176,9 +176,9 @@ API.Plugins.b3 = {
 			var footer = modal.find('.modal-footer');
 			header.find('button[data-control="hide"]').remove();
 			header.find('button[data-control="update"]').remove();
-			body.append('<div class="row" data-content="files"></div>');
+			body.append('<div class="row" data-content="files"><div class="col-12"></div></div>');
 			body.append('<div class="row" data-content="notes"><div class="col-12"><textarea title="Note" name="note" class="form-control"></textarea></div></div>');
-			var files = body.find('div[data-content="files"]');
+			var files = body.find('div[data-content="files"] div.col-12');
 			var notes = body.find('div[data-content="notes"]').find('textarea');
 			if(API.Helper.isSet(data,['relations','files'])){
 				for(var [id, file] of Object.entries(data.relations.files)){
