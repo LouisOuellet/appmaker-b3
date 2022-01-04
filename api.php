@@ -22,7 +22,7 @@ class b3API extends CRUDAPI {
 		if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
 			$scan['messages'] = $this->Auth->query('SELECT * FROM `messages` WHERE `meta` LIKE ?','%TR:%')->fetchAll()->all();
 		}
-		foreach($do as $table => $records){
+		foreach($scan as $table => $records){
 			if(!empty($records)){
 				foreach($records as $record){
 					// Assemble Meta Data
@@ -79,31 +79,37 @@ class b3API extends CRUDAPI {
 						foreach($relationships as $id => $relationship){
 							if($lastID < $id){ $lastID = $id; }
 							foreach($relationship as $relation){
-								// if($relation['relationship'] == 'messages'){
-								// 	$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
-								// 	if(!empty($message)){
-								// 		$message = $message[0];
-								// 		$current = $b3['status'];
-								// 		if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
-								// 		if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
-								// 		if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
-								// 		if(strpos($message['to'], 'billed@') !== false && $current < 9){$b3['status'] = 9;}
-								// 		if(strpos($message['to'], 'done@') !== false && $current < 11){$b3['status'] = 11;}
-								// 		if(strpos($message['to'], 'cancel@') !== false && $current < 12){$b3['status'] = 12;}
-								// 		if(isset($this->Settings['debug']) && $this->Settings['debug'] && $current != $b3['status']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
-								// 		if($current != $b3['status']){
-								// 			$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
-								// 			if(!empty($status)){
-								// 				$this->createRelationship([
-								// 					'relationship_1' => 'b3',
-								// 					'link_to_1' => $b3['id'],
-								// 					'relationship_2' => 'statuses',
-								// 					'link_to_2' => $status[0]['id'],
-								// 				],true);
-								// 			}
-								// 		}
-								// 	}
-								// }
+								if($relation['relationship'] == 'messages'){
+									$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
+									if(!empty($message)){
+										$message = $message[0];
+										$meta = json_decode($message['meta'], true);
+										if(!in_array('scanB3',$meta)){
+											array_push($meta,'scanB3');
+											$message['meta'] = json_encode($meta, JSON_PRETTY_PRINT);
+											$this->Auth->update('messages',$message,$message['id']);
+											$current = $b3['status'];
+											if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
+											if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
+											if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
+											if(strpos($message['to'], 'billed@') !== false && $current < 9){$b3['status'] = 9;}
+											if(strpos($message['to'], 'done@') !== false && $current < 11){$b3['status'] = 11;}
+											if(strpos($message['to'], 'cancel@') !== false && $current < 12){$b3['status'] = 12;}
+											if(isset($this->Settings['debug']) && $this->Settings['debug'] && $current != $b3['status']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
+											if($current != $b3['status']){
+												$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
+												if(!empty($status)){
+													$this->createRelationship([
+														'relationship_1' => 'b3',
+														'link_to_1' => $b3['id'],
+														'relationship_2' => 'statuses',
+														'link_to_2' => $status[0]['id'],
+													],true);
+												}
+											}
+										}
+									}
+								}
 							}
 						}
 						// Link the Organization
