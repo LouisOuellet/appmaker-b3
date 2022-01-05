@@ -83,7 +83,9 @@ class b3API extends CRUDAPI {
 							}
 							$relations = $this->buildRelations($relationships);
 							if(isset($relations['messages'])){
+								var_dump($relations['messages']);
 								foreach($relations['messages'] as $msg){
+									var_dump($msg);
 									$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$msg['id'])->fetchAll()->all();
 									if(!empty($message)){
 										$message = $message[0];
