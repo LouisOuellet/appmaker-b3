@@ -1,11 +1,22 @@
 <?php
 class b3API extends CRUDAPI {
 
+	public function read($request = null, $data = null){
+		if(isset($data)){
+			if(!is_array($data)){ $data = json_decode($data, true); }
+			$this->Auth->setLimit(0);
+			// Load B3s
+			$B3s = parent::read('b3', $data);
+			// Return
+			return $B3s;
+		}
+	}
+
 	public function get($request = null, $data = null){
 		if(isset($data)){
 			if(!is_array($data)){ $data = json_decode($data, true); }
 			$this->Auth->setLimit(0);
-			// Load Event
+			// Load B3
 			$get = parent::get('b3', $data);
 			// Build Relations
 			$get = $this->buildRelations($get);
