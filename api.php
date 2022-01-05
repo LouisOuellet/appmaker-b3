@@ -82,6 +82,7 @@ class b3API extends CRUDAPI {
 								foreach($relationship as $relation){}
 							}
 							$relations = $this->buildRelations($relationships);
+							var_dump($relations);
 							if(isset($relations['messages'])){
 								var_dump($relations['messages']);
 								foreach($relations['messages'] as $msg){
