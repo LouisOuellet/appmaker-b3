@@ -87,9 +87,11 @@ class b3API extends CRUDAPI {
 									$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$msg['id'])->fetchAll()->all();
 									if(!empty($message)){
 										$message = $message[0];
+										var_dump($message);
+										var_dump(!in_array('scanB3',$msg['meta']));
 										if(!in_array('scanB3',$msg['meta'])){
-											$current = $b3['status'];
 											var_dump(strpos($message['to'], 'release@') !== false);
+											$current = $b3['status'];
 											if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
 											if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
 											if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
