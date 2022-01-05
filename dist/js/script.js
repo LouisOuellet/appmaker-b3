@@ -16,7 +16,7 @@ API.Plugins.b3 = {
 							headers:dataset.output.headers,
 							id:'b3Index',
 							modal:true,
-							key:'id',
+							key:'transaction_number',
 							clickable:{ enable:true, view:'details'},
 							controls:{ toolbar:true},
 							import:{ key:'id', },
@@ -30,7 +30,7 @@ API.Plugins.b3 = {
 			var container = $('div[data-plugin="b3"][data-id]').last();
 			var url = new URL(window.location.href);
 			var id = url.searchParams.get("id");
-			API.request(url.searchParams.get("p"),'get',{data:{id:id,key:'id'}},function(result){
+			API.request(url.searchParams.get("p"),'get',{data:{id:id,key:'transaction_number'}},function(result){
 				var dataset = JSON.parse(result);
 				if(dataset.success != undefined){
 					container.attr('data-id',dataset.output.this.raw.id);
@@ -328,7 +328,7 @@ API.Plugins.b3 = {
 						layout.timeline.append(items);
 						element.find('i').first().addClass('pointer');
 						element.find('i').first().off().click(function(){
-							API.CRUD.read.show({ key:'id',keys:dataset, href:"?p=b3&v=details&id="+dataset.id, modal:true });
+							API.CRUD.read.show({ key:'transaction_number',keys:dataset, href:"?p=b3&v=details&id="+dataset.transaction_number, modal:true });
 						});
 						if(callback != null){ callback(element); }
 					}
