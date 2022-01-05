@@ -1,3 +1,6 @@
 .icon-review::before{
   content: "\f689";
 }
+.icon-b3::before{
+  content: "\f570";
+}
