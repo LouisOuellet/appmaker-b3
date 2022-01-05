@@ -300,7 +300,7 @@ API.Plugins.b3 = {
 		icon:"file-invoice",
 		object:function(dataset,layout,options = {},callback = null){
 			if(options instanceof Function){ callback = options; options = {}; }
-			var defaults = {icon: API.Plugins.b3.Timeline.icon,color: "secondary"};
+			var defaults = {icon: API.Plugins.b3.Timeline.icon,color: "indigo"};
 			for(var [key, option] of Object.entries(options)){ if(API.Helper.isSet(defaults,[key])){ defaults[key] = option; } }
 			if(typeof dataset.id !== 'undefined'){
 				var dateItem = new Date(dataset.created);
