@@ -182,16 +182,18 @@ API.Plugins.b3 = {
 			var notes = body.find('div[data-content="notes"]').find('textarea');
 			if(API.Helper.isSet(data,['relations','files'])){
 				for(var [id, file] of Object.entries(data.relations.files)){
-					files.append(API.Plugins.files.Layouts.details.GUI.button(file,{download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 1),download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 4)}));
-					files.find('button[data-action="view"').off().click(function(){
-						API.Plugins.files.view($(this).attr('data-id'));
-					});
-					files.find('button[data-action="download"]').off().click(function(){
-						API.Plugins.files.download($(this).attr('data-id'));
-					});
-					files.find('button[data-action="delete"]').off().click(function(){
-						API.Plugins.files.delete($(this).attr('data-id'),$(this).attr('data-name'),layout);
-					});
+					if(file.filename.includes("MD"+data.this.raw.transaction_number) || file.filename.includes("DOCSET")){
+						files.append(API.Plugins.files.Layouts.details.GUI.button(file,{download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 1),download:API.Auth.validate('custom', url.searchParams.get("p")+'_files', 4)}));
+						files.find('button[data-action="view"').off().click(function(){
+							API.Plugins.files.view($(this).attr('data-id'));
+						});
+						files.find('button[data-action="download"]').off().click(function(){
+							API.Plugins.files.download($(this).attr('data-id'));
+						});
+						files.find('button[data-action="delete"]').off().click(function(){
+							API.Plugins.files.delete($(this).attr('data-id'),$(this).attr('data-name'),layout);
+						});
+					}
 				}
 			}
 			notes.summernote({
