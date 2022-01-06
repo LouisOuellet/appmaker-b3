@@ -122,6 +122,22 @@ class b3API extends CRUDAPI {
 											}
 										}
 									}
+									if($relation['relationship'] == 'conversations'){
+										if($current != $b3['status'] && $b3['status'] >= 11){
+											$conversation['id'] = $relation['link_to'];
+											$conversation['status'] = 3;
+											$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$conversation['status'])->fetchAll()->all();
+											if(!empty($status)){
+												$this->createRelationship([
+													'relationship_1' => 'conversations',
+													'link_to_1' => $record['id'],
+													'relationship_2' => 'statuses',
+													'link_to_2' => $status[0]['id'],
+												],true);
+												$this->Auth->update('conversations',$conversation,$conversation['id']);
+											}
+										}
+									}
 								}
 							}
 							// Link the Organization
@@ -138,22 +154,6 @@ class b3API extends CRUDAPI {
 								'relationship_2' => $table,
 								'link_to_2' => $record['id'],
 							]);
-							// Close and Cancel events
-							if($current != $b3['status'] && $b3['status'] >= 11){
-								if($table == 'conversations'){
-									$record['status'] = 3;
-									$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$record['status'])->fetchAll()->all();
-									if(!empty($status)){
-										$this->createRelationship([
-											'relationship_1' => 'conversations',
-											'link_to_1' => $record['id'],
-											'relationship_2' => 'statuses',
-											'link_to_2' => $status[0]['id'],
-										],true);
-										$this->Auth->update('conversations',$record,$record['id']);
-									}
-								}
-							}
 							// Copy Relationship from record
 							$this->copyRelationships($table,$record['id'],'b3',$b3['id']);
 							// Reload Relationships
