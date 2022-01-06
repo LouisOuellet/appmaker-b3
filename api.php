@@ -86,60 +86,7 @@ class b3API extends CRUDAPI {
 							// Load Relationships
 							$relationships = $this->getRelationships('b3',$b3['id']);
 							$lastID = 0;
-							foreach($relationships as $id => $relationship){
-								if($lastID < $id){ $lastID = $id; }
-								foreach($relationship as $relation){
-									if($relation['relationship'] == 'messages'){
-										// run through messages here instead
-										$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
-										if(!empty($message)){
-											$message = $message[0];
-											if($message['meta'] != '' && $message['meta'] != null && !is_array($message['meta'])){
-												$message['meta'] = json_decode($message['meta'], true);
-											} else { $message['meta'] = []; }
-											if(!in_array('scanB3',$message['meta'])){
-												if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
-												if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
-												if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
-												if(strpos($message['to'], 'billed@') !== false && $current < 9){$b3['status'] = 9;}
-												if(strpos($message['to'], 'done@') !== false && $current < 11){$b3['status'] = 11;}
-												if(strpos($message['to'], 'cancel@') !== false && $current < 12){$b3['status'] = 12;}
-												if(isset($this->Settings['debug']) && $this->Settings['debug'] && $current != $b3['status']){ echo "[".$message['to']."]"."[".$b3['transaction_number']."] changing status from: ".$current." to: ".$b3['status']."\n"; }
-												if($current != $b3['status']){
-													$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','b3',$b3['status'])->fetchAll()->all();
-													if(!empty($status)){
-														$this->createRelationship([
-															'relationship_1' => 'b3',
-															'link_to_1' => $b3['id'],
-															'relationship_2' => 'statuses',
-															'link_to_2' => $status[0]['id'],
-														],true);
-													}
-												}
-												array_push($message['meta'],'scanB3');
-												$message['meta'] = json_encode($message['meta'], JSON_PRETTY_PRINT);
-												$this->Auth->update('messages',$message,$message['id']);
-											}
-										}
-									}
-									if($relation['relationship'] == 'conversations'){
-										if($current != $b3['status'] && $b3['status'] >= 11){
-											$conversation['id'] = $relation['link_to'];
-											$conversation['status'] = 3;
-											$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$conversation['status'])->fetchAll()->all();
-											if(!empty($status)){
-												$this->createRelationship([
-													'relationship_1' => 'conversations',
-													'link_to_1' => $record['id'],
-													'relationship_2' => 'statuses',
-													'link_to_2' => $status[0]['id'],
-												],true);
-												$this->Auth->update('conversations',$conversation,$conversation['id']);
-											}
-										}
-									}
-								}
-							}
+							foreach($relationships as $id => $relationship){ if($lastID < $id){ $lastID = $id; } }
 							// Link the Organization
 							$this->createRelationship([
 								'relationship_1' => 'b3',
@@ -162,7 +109,7 @@ class b3API extends CRUDAPI {
 							foreach($relationships as $id => $relationship){
 								foreach($relationship as $relation){
 									if($relation['relationship'] == 'messages'){
-										// run through messages here instead
+										// Updating B3 based on messages
 										$message = $this->Auth->query('SELECT * FROM `messages` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
 										if(!empty($message)){
 											$message = $message[0];
@@ -195,14 +142,32 @@ class b3API extends CRUDAPI {
 											}
 										}
 									}
+									// Closing open conversations
+									if($relation['relationship'] == 'conversations'){
+										if($current != $b3['status'] && $b3['status'] >= 11){
+											$conversation = $this->Auth->query('SELECT * FROM `conversations` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
+											if(!empty($conversation)){
+												$conversation = $conversation[0];
+												$conversation['status'] = 3;
+												$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$conversation['status'])->fetchAll()->all();
+												if(!empty($status)){
+													$this->createRelationship([
+														'relationship_1' => 'conversations',
+														'link_to_1' => $record['id'],
+														'relationship_2' => 'statuses',
+														'link_to_2' => $status[0]['id'],
+													],true);
+													$this->Auth->update('conversations',$conversation,$conversation['id']);
+												}
+											}
+										}
+									}
 								}
 							}
 							// Check if B3 was updated
 							$relationships = $this->getRelationships('b3',$b3['id']);
 							$newID = 0;
-							foreach($relationships as $id => $relationship){
-								if($newID < $id){ $newID = $id; }
-							}
+							foreach($relationships as $id => $relationship){ if($newID < $id){ $newID = $id; } }
 							// Display if B3 was updated
 							if($lastID < $newID){
 								if(isset($record['hasNew']) && in_array($table,['conversations'])){
