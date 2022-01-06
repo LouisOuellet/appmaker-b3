@@ -30,9 +30,6 @@ class b3API extends CRUDAPI {
 		if(isset($this->Settings['plugins']['conversations']['status']) && $this->Settings['plugins']['conversations']['status']){
 			$scan['conversations'] = $this->Auth->query('SELECT * FROM `conversations` WHERE `meta` LIKE ? AND `hasNew` = ?','%TR:%','true')->fetchAll()->all();
 		}
-		if(isset($this->Settings['plugins']['messages']['status']) && $this->Settings['plugins']['messages']['status']){
-			$scan['messages'] = $this->Auth->query('SELECT * FROM `messages` WHERE `meta` NOT LIKE ?','%scanB3%')->fetchAll()->all();
-		}
 		foreach($scan as $table => $records){
 			if(!empty($records)){
 				foreach($records as $record){
@@ -85,6 +82,7 @@ class b3API extends CRUDAPI {
 								}
 								$action = "Creating";
 							}
+							$current = $b3['status'];
 							// Load Relationships
 							$relationships = $this->getRelationships('b3',$b3['id']);
 							$lastID = 0;
@@ -100,7 +98,6 @@ class b3API extends CRUDAPI {
 												$message['meta'] = json_decode($message['meta'], true);
 											} else { $message['meta'] = []; }
 											if(!in_array('scanB3',$message['meta'])){
-												$current = $b3['status'];
 												if(strpos($message['to'], 'create@') !== false && $current < 4){$b3['status'] = 3;}
 												if(strpos($message['to'], 'reject@') !== false && $current < 4){$b3['status'] = 4;}
 												if(strpos($message['to'], 'release@') !== false && $current < 6){$b3['status'] = 6;}
@@ -141,6 +138,22 @@ class b3API extends CRUDAPI {
 								'relationship_2' => $table,
 								'link_to_2' => $record['id'],
 							]);
+							// Close and Cancel events
+							if($current != $b3['status'] && $b3['status'] >= 11){
+								if($table == 'conversations'){
+									$record['status'] = 3;
+									$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$record['status'])->fetchAll()->all();
+									if(!empty($status)){
+										$this->createRelationship([
+											'relationship_1' => 'conversations',
+											'link_to_1' => $record['id'],
+											'relationship_2' => 'statuses',
+											'link_to_2' => $status[0]['id'],
+										],true);
+										$this->Auth->update('conversations',$record,$record['id']);
+									}
+								}
+							}
 							// Copy Relationship from record
 							$this->copyRelationships($table,$record['id'],'b3',$b3['id']);
 							// Reload Relationships
