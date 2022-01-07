@@ -144,7 +144,7 @@ class b3API extends CRUDAPI {
 									}
 									// Closing open conversations
 									if($relation['relationship'] == 'conversations'){
-										if($current != $b3['status'] && $b3['status'] >= 11){
+										if($b3['status'] >= 11){
 											$conversation = $this->Auth->query('SELECT * FROM `conversations` WHERE `id` = ?',$relation['link_to'])->fetchAll()->all();
 											if(!empty($conversation)){
 												$conversation = $conversation[0];
