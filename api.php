@@ -139,7 +139,7 @@ class b3API extends CRUDAPI {
 												array_push($message['meta'],'scanB3');
 												$message['meta'] = json_encode($message['meta'], JSON_PRETTY_PRINT);
 												$this->Auth->update('messages',$message,$message['id']);
-												if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$message['id']."]"." Message tagged!\n"; }
+												if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$message['id']."] Message tagged!\n"; }
 											}
 										}
 									}
@@ -159,7 +159,7 @@ class b3API extends CRUDAPI {
 														'link_to_2' => $status[0]['id'],
 													],true);
 													$this->Auth->update('conversations',$conversation,$conversation['id']);
-													if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$conversation['id']."]"." Conversation Closed!\n"; }
+													if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$conversation['id']."] Conversation Closed!\n"; }
 												}
 											}
 										}
