@@ -151,6 +151,7 @@ class b3API extends CRUDAPI {
 												if(!empty($conversation)){
 													$conversation = $conversation[0];
 													$conversation['status'] = 3;
+													$conversation['hasNew'] = '';
 													$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$conversation['status'])->fetchAll()->all();
 													if(!empty($status)){
 														$this->createRelationship([
@@ -173,11 +174,6 @@ class b3API extends CRUDAPI {
 								foreach($relationships as $id => $relationship){ if($newID < $id){ $newID = $id; } }
 								// Display if B3 was updated
 								if($lastID < $newID){
-									if(isset($record['hasNew']) && in_array($table,['conversations'])){
-										$record['hasNew'] = '';
-										$this->Auth->update($table,$record,$record['id']);
-										if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$table."] Updating record: [".$record['id']."]\n"; }
-									}
 									$this->Auth->update('b3',$b3,$b3['id']);
 									if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$newID."]".$action." B3: ".$metaData['transaction_number']."\n"; }
 								}
