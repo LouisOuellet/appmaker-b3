@@ -13,7 +13,7 @@ API.Plugins.b3 = {
 						for(const [key, value] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','b3',value.id],value); }
 						for(const [key, value] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','b3',value.id],value); }
 						API.Builder.table(card.children('.card-body'), dataset.output.dom, {
-							headers:['transaction_number','status','cargo_control_number','container_numbers','mwb','num_pkg','gross_weight','po_num','invoice_number'],
+							headers:['transaction_number','status','b3_client_code','cargo_control_number','container_numbers','mwb','num_pkg','gross_weight','po_num','invoice_number'],
 							id:'b3Index',
 							modal:true,
 							key:'transaction_number',
