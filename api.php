@@ -63,6 +63,9 @@ class b3API extends CRUDAPI {
 							case"WEIGHT":
 								$metaData['gross_weight'] = $metaPart[1];
 								break;
+							case"CLIENT":
+								$metaData['b3_client_code'] = $metaPart[1];
+								break;
 							default: break;
 						}
 					}
