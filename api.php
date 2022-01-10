@@ -66,6 +66,21 @@ class b3API extends CRUDAPI {
 							case"CLIENT":
 								$metaData['b3_client_code'] = $metaPart[1];
 								break;
+							case"VENDOR":
+								$metaData['vendor_code'] = $metaPart[1];
+								break;
+							case"BILLING":
+								$metaData['invoice_number'] = $metaPart[1];
+								break;
+							case"CROSSING":
+								$metaData['customs_office'] = $metaPart[1];
+								break;
+							case"LOCATION":
+								$metaData['location_of_goods'] = $metaPart[1];
+								break;
+							case"SBNR":
+								$metaData['client_sbnr'] = $metaPart[1];
+								break;
 							default: break;
 						}
 					}
