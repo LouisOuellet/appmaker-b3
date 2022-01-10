@@ -54,6 +54,15 @@ class b3API extends CRUDAPI {
 							case"TR":
 								$metaData['transaction_number'] = $metaPart[1];
 								break;
+							case"MWB":
+								$metaData['mwb'] = $metaPart[1];
+								break;
+							case"PKG":
+								$metaData['num_pkg'] = $metaPart[1];
+								break;
+							case"WEIGHT":
+								$metaData['gross_weight'] = $metaPart[1];
+								break;
 							default: break;
 						}
 					}
