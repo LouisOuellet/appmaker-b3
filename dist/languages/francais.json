@@ -1,5 +1,5 @@
 {
-		"Locations of goods": "Sub Location",
+		"Location of goods": "Sub Location",
 		"Ci number": "CI Number",
 		"mwb": "MWB",
 		"Mwb": "MWB",
@@ -21,7 +21,6 @@
 		"Po num": "PO num",
 		"B3 duty amount": "B3 duty amount",
 		"Carrier name": "Carrier name",
-		"Location of goods": "Location of goods",
 		"B3 client code": "B3 client code",
 		"Customs office": "Customs office",
 		"Customs office name": "Customs office name",
