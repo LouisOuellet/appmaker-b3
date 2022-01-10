@@ -78,8 +78,8 @@ class b3API extends CRUDAPI {
 							case"LOCATION":
 								$metaData['location_of_goods'] = $metaPart[1];
 								break;
-							case"SBNR":
-								$metaData['client_sbnr'] = $metaPart[1];
+							case"SBRN":
+								$metaData['client_sbrn'] = $metaPart[1];
 								break;
 							default: break;
 						}
