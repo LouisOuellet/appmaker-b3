@@ -32,6 +32,7 @@ class b3API extends CRUDAPI {
 		}
 		foreach($scan as $table => $records){
 			if(!empty($records)){
+				if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".count($records)."] conversations to scan\n"; }
 				foreach($records as $record){
 					// Assemble Meta Data
 					$metaData = [];
