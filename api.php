@@ -43,7 +43,7 @@ class b3API extends CRUDAPI {
 								$metaData['po_num'] = $metaPart[1];
 								break;
 							case"INV":
-								$metaData['invoice_number'] = $metaPart[1];
+								$metaData['ci_num'] = $metaPart[1];
 								break;
 							case"CN":
 								$metaData['container_numbers'] = $metaPart[1];

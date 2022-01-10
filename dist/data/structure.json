@@ -100,195 +100,200 @@
             "type": "varchar(255)"
         },
         "20": "po_num",
-        "b3_duty_amount": {
+        "ci_num": {
             "order": 21,
             "type": "varchar(255)"
         },
-        "21": "b3_duty_amount",
-        "carrier_name": {
+        "21": "ci_num",
+        "b3_duty_amount": {
             "order": 22,
             "type": "varchar(255)"
         },
-        "22": "carrier_name",
-        "location_of_goods": {
+        "22": "b3_duty_amount",
+        "carrier_name": {
             "order": 23,
             "type": "varchar(255)"
         },
-        "23": "location_of_goods",
-        "b3_client_code": {
+        "23": "carrier_name",
+        "location_of_goods": {
             "order": 24,
             "type": "varchar(255)"
         },
-        "24": "b3_client_code",
-        "customs_office": {
+        "24": "location_of_goods",
+        "b3_client_code": {
             "order": 25,
             "type": "varchar(255)"
         },
-        "25": "customs_office",
-        "customs_office_name": {
+        "25": "b3_client_code",
+        "customs_office": {
             "order": 26,
             "type": "varchar(255)"
         },
-        "26": "customs_office_name",
-        "mot_code": {
+        "26": "customs_office",
+        "customs_office_name": {
             "order": 27,
             "type": "varchar(255)"
         },
-        "27": "mot_code",
-        "user_code": {
+        "27": "customs_office_name",
+        "mot_code": {
             "order": 28,
             "type": "varchar(255)"
         },
-        "28": "user_code",
-        "assessment_option": {
+        "28": "mot_code",
+        "user_code": {
             "order": 29,
             "type": "varchar(255)"
         },
-        "29": "assessment_option",
-        "created_by": {
+        "29": "user_code",
+        "assessment_option": {
             "order": 30,
             "type": "varchar(255)"
         },
-        "30": "created_by",
-        "created_tist": {
+        "30": "assessment_option",
+        "created_by": {
             "order": 31,
-            "type": "datetime"
-        },
-        "31": "created_tist",
-        "broker_service_level": {
-            "order": 32,
             "type": "varchar(255)"
         },
-        "32": "broker_service_level",
-        "proc_type": {
+        "31": "created_by",
+        "created_tist": {
+            "order": 32,
+            "type": "datetime"
+        },
+        "32": "created_tist",
+        "broker_service_level": {
             "order": 33,
             "type": "varchar(255)"
         },
-        "33": "proc_type",
-        "rel_mode_code": {
+        "33": "broker_service_level",
+        "proc_type": {
             "order": 34,
             "type": "varchar(255)"
         },
-        "34": "rel_mode_code",
-        "cust_rel_code": {
+        "34": "proc_type",
+        "rel_mode_code": {
             "order": 35,
             "type": "varchar(255)"
         },
-        "35": "cust_rel_code",
-        "billed_date": {
+        "35": "rel_mode_code",
+        "cust_rel_code": {
             "order": 36,
             "type": "varchar(255)"
         },
-        "36": "billed_date",
-        "num_pkg": {
+        "36": "cust_rel_code",
+        "billed_date": {
             "order": 37,
             "type": "varchar(255)"
         },
-        "37": "num_pkg",
-        "pkg_code": {
+        "37": "billed_date",
+        "num_pkg": {
             "order": 38,
             "type": "varchar(255)"
         },
-        "38": "pkg_code",
-        "gross_weight": {
+        "38": "num_pkg",
+        "pkg_code": {
             "order": 39,
             "type": "varchar(255)"
         },
-        "39": "gross_weight",
-        "weight_uom": {
+        "39": "pkg_code",
+        "gross_weight": {
             "order": 40,
             "type": "varchar(255)"
         },
-        "40": "weight_uom",
-        "bol_num": {
+        "40": "gross_weight",
+        "weight_uom": {
             "order": 41,
             "type": "varchar(255)"
         },
-        "41": "bol_num",
-        "release_date": {
+        "41": "weight_uom",
+        "bol_num": {
             "order": 42,
-            "type": "date"
+            "type": "varchar(255)"
         },
-        "42": "release_date",
-        "b3_date": {
+        "42": "bol_num",
+        "release_date": {
             "order": 43,
             "type": "date"
         },
-        "43": "b3_date",
-        "b3_due_date": {
+        "43": "release_date",
+        "b3_date": {
             "order": 44,
             "type": "date"
         },
-        "44": "b3_due_date",
-        "billing_amount": {
+        "44": "b3_date",
+        "b3_due_date": {
             "order": 45,
-            "type": "varchar(255)"
+            "type": "date"
         },
-        "45": "billing_amount",
-        "billing_currency": {
+        "45": "b3_due_date",
+        "billing_amount": {
             "order": 46,
             "type": "varchar(255)"
         },
-        "46": "billing_currency",
-        "sima_amount": {
+        "46": "billing_amount",
+        "billing_currency": {
             "order": 47,
             "type": "varchar(255)"
         },
-        "47": "sima_amount",
-        "excise_duty": {
+        "47": "billing_currency",
+        "sima_amount": {
             "order": 48,
             "type": "varchar(255)"
         },
-        "48": "excise_duty",
-        "excise_tax": {
+        "48": "sima_amount",
+        "excise_duty": {
             "order": 49,
             "type": "varchar(255)"
         },
-        "49": "excise_tax",
-        "cons_name": {
+        "49": "excise_duty",
+        "excise_tax": {
             "order": 50,
             "type": "varchar(255)"
         },
-        "50": "cons_name",
-        "k84_acct_date": {
+        "50": "excise_tax",
+        "cons_name": {
             "order": 51,
-            "type": "date"
-        },
-        "51": "k84_acct_date",
-        "team_code": {
-            "order": 52,
             "type": "varchar(255)"
         },
-        "52": "team_code",
-        "client_sbrn": {
+        "51": "cons_name",
+        "k84_acct_date": {
+            "order": 52,
+            "type": "date"
+        },
+        "52": "k84_acct_date",
+        "team_code": {
             "order": 53,
             "type": "varchar(255)"
         },
-        "53": "client_sbrn",
-        "td_pay_mode": {
+        "53": "team_code",
+        "client_sbrn": {
             "order": 54,
             "type": "varchar(255)"
         },
-        "54": "td_pay_mode",
-        "container_numbers": {
+        "54": "client_sbrn",
+        "td_pay_mode": {
             "order": 55,
-            "type": "text"
-        },
-        "55": "container_numbers",
-        "invoice_paid": {
-            "order": 56,
-            "type": "date"
-        },
-        "56": "invoice_paid",
-        "customs_charges_paid": {
-            "order": 57,
             "type": "varchar(255)"
         },
-        "57": "customs_charges_paid",
-        "bill_to": {
+        "55": "td_pay_mode",
+        "container_numbers": {
+            "order": 56,
+            "type": "text"
+        },
+        "56": "container_numbers",
+        "invoice_paid": {
+            "order": 57,
+            "type": "date"
+        },
+        "57": "invoice_paid",
+        "customs_charges_paid": {
             "order": 58,
             "type": "varchar(255)"
         },
-        "58": "bill_to"
+        "58": "customs_charges_paid",
+        "bill_to": {
+            "order": 59,
+            "type": "varchar(255)"
+        },
+        "59": "bill_to"
     }
 }

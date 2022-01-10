@@ -13,7 +13,7 @@ API.Plugins.b3 = {
 						for(const [key, value] of Object.entries(dataset.output.dom)){ API.Helper.set(API.Contents,['data','dom','b3',value.id],value); }
 						for(const [key, value] of Object.entries(dataset.output.raw)){ API.Helper.set(API.Contents,['data','raw','b3',value.id],value); }
 						API.Builder.table(card.children('.card-body'), dataset.output.dom, {
-							headers:['transaction_number','status','b3_client_code','cargo_control_number','container_numbers','mwb','num_pkg','gross_weight','po_num','invoice_number'],
+							headers:['transaction_number','invoice_number','status','b3_client_code','client_sbrn','cargo_control_number','customs_office','locations_of_goods','container_numbers','mwb','num_pkg','gross_weight','vendor_code','po_num','ci_number'],
 							id:'b3Index',
 							modal:true,
 							key:'transaction_number',
@@ -88,6 +88,8 @@ API.Plugins.b3 = {
 							}
 							// Transaction Number
 							API.GUI.Layouts.details.data(data,layout,{field:"transaction_number"});
+							// Billing Invoice Number
+							API.GUI.Layouts.details.data(data,layout,{field:"invoice_number"});
 							// Status
 							if(API.Helper.isSet(API.Plugins,['statuses']) && API.Auth.validate('custom', 'b3_statuses', 1)){
 								API.Plugins.statuses.Layouts.details.detail(data,layout);
@@ -98,16 +100,24 @@ API.Plugins.b3 = {
 							}
 							// Client
 							API.GUI.Layouts.details.data(data,layout,{field:"b3_client_code"});
+							// SBRN
+							API.GUI.Layouts.details.data(data,layout,{field:"client_sbrn"});
 							// Cargo Control Number
 							API.GUI.Layouts.details.data(data,layout,{field:"cargo_control_number"});
+							// Customs Office
+							API.GUI.Layouts.details.data(data,layout,{field:"customs_office"});
+							// Sub Location
+							API.GUI.Layouts.details.data(data,layout,{field:"location_of_goods"});
 							// Master WayBill
 							API.GUI.Layouts.details.data(data,layout,{field:"mwb"});
 							// Container Number(s)
 							API.GUI.Layouts.details.data(data,layout,{field:"container_numbers"});
+							// Vendor
+							API.GUI.Layouts.details.data(data,layout,{field:"vendor_code"});
 							// Purchase Order
 							API.GUI.Layouts.details.data(data,layout,{field:"po_num"});
 							// Invoice Number
-							API.GUI.Layouts.details.data(data,layout,{field:"invoice_number"});
+							API.GUI.Layouts.details.data(data,layout,{field:"ci_num"});
 							// Number of Packages
 							API.GUI.Layouts.details.data(data,layout,{field:"num_pkg"});
 							// Weight
