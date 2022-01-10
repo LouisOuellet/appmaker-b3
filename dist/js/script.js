@@ -96,6 +96,22 @@ API.Plugins.b3 = {
 							if(API.Helper.isSet(API.Plugins,['organizations']) && API.Auth.validate('custom', 'b3_organizations', 1)){
 								API.Plugins.organizations.Layouts.details.detail(data,layout);
 							}
+							// Client
+							API.GUI.Layouts.details.data(data,layout,{field:"b3_client_code"});
+							// Cargo Control Number
+							API.GUI.Layouts.details.data(data,layout,{field:"cargo_control_number"});
+							// Master WayBill
+							API.GUI.Layouts.details.data(data,layout,{field:"mwb"});
+							// Container Number(s)
+							API.GUI.Layouts.details.data(data,layout,{field:"container_numbers"});
+							// Purchase Order
+							API.GUI.Layouts.details.data(data,layout,{field:"po_num"});
+							// Invoice Number
+							API.GUI.Layouts.details.data(data,layout,{field:"invoice_number"});
+							// Number of Packages
+							API.GUI.Layouts.details.data(data,layout,{field:"num_pkg"});
+							// Weight
+							API.GUI.Layouts.details.data(data,layout,{field:"gross_weight"});
 							// Notes
 							if(API.Helper.isSet(API.Plugins,['notes']) && API.Auth.validate('custom', 'b3_notes', 1)){
 								API.Plugins.notes.Layouts.details.tab(data,layout);
