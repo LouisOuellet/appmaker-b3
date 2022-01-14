@@ -189,6 +189,7 @@ class b3API extends CRUDAPI {
 								if(isset($this->Settings['plugins']['b3']['settings']['accounts']) && is_array($this->Settings['plugins']['b3']['settings']['accounts']) && in_array($record['account'],$this->Settings['plugins']['b3']['settings']['accounts'])){
 									$record['hasNew'] = '';
 									$this->Auth->update('conversations',$record,$record['id']);
+									if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."] Conversation Read!\n"; }
 								}
 								if($b3['status'] >= 11 && $record['status'] == 1){
 									$record['status'] = 3;
