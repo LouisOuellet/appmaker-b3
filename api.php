@@ -186,22 +186,22 @@ class b3API extends CRUDAPI {
 							}
 							// Closing open conversations
 							if($table == 'conversations'){
-								if($b3['status'] >= 11){
-									$conversation = $this->Auth->query('SELECT * FROM `conversations` WHERE `id` = ? AND `status` = ?',$record['id'],1)->fetchAll()->all();
-									if(!empty($conversation)){
-										$conversation = $conversation[0];
-										$conversation['status'] = 3;
-										$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$conversation['status'])->fetchAll()->all();
-										if(!empty($status)){
-											$this->createRelationship([
-												'relationship_1' => 'conversations',
-												'link_to_1' => $record['id'],
-												'relationship_2' => 'statuses',
-												'link_to_2' => $status[0]['id'],
-											]);
-											$this->Auth->update('conversations',$conversation,$conversation['id']);
-											if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$conversation['id']."] Conversation Closed!\n"; }
-										}
+								if(isset($this->Settings['plugins']['b3']['settings']['accounts']) && is_array($this->Settings['plugins']['b3']['settings']['accounts']) && in_array($record['account'],$this->Settings['plugins']['b3']['settings']['accounts'])){
+									$record['hasNew'] = '';
+									$this->Auth->update('conversations',$record,$record['id']);
+								}
+								if($b3['status'] >= 11 && $record['status'] == 1){
+									$record['status'] = 3;
+									$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$record['status'])->fetchAll()->all();
+									if(!empty($status)){
+										$this->createRelationship([
+											'relationship_1' => 'conversations',
+											'link_to_1' => $record['id'],
+											'relationship_2' => 'statuses',
+											'link_to_2' => $status[0]['id'],
+										]);
+										$this->Auth->update('conversations',$record,$record['id']);
+										if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."] Conversation Closed!\n"; }
 									}
 								}
 							}
