@@ -190,19 +190,19 @@ class b3API extends CRUDAPI {
 									$record['hasNew'] = '';
 									$this->Auth->update('conversations',$record,$record['id']);
 									if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."] Conversation Read!\n"; }
-								}
-								if($b3['status'] >= 11 && $record['status'] == 1){
-									$record['status'] = 3;
-									$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$record['status'])->fetchAll()->all();
-									if(!empty($status)){
-										$this->createRelationship([
-											'relationship_1' => 'conversations',
-											'link_to_1' => $record['id'],
-											'relationship_2' => 'statuses',
-											'link_to_2' => $status[0]['id'],
-										]);
-										$this->Auth->update('conversations',$record,$record['id']);
-										if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."] Conversation Closed!\n"; }
+									if($b3['status'] >= 11 && $record['status'] == 1){
+										$record['status'] = 3;
+										$status = $this->Auth->query('SELECT * FROM `statuses` WHERE `relationship` = ? AND `order` = ?','conversations',$record['status'])->fetchAll()->all();
+										if(!empty($status)){
+											$this->createRelationship([
+												'relationship_1' => 'conversations',
+												'link_to_1' => $record['id'],
+												'relationship_2' => 'statuses',
+												'link_to_2' => $status[0]['id'],
+											]);
+											$this->Auth->update('conversations',$record,$record['id']);
+											if(isset($this->Settings['debug']) && $this->Settings['debug']){ echo "[".$record['id']."] Conversation Closed!\n"; }
+										}
 									}
 								}
 							}
