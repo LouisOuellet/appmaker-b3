@@ -7,6 +7,7 @@ API.Plugins.b3 = {
 			if(a.length > 0){
 				clearInterval(checkNav);
 				a.removeAttr('href');
+				a.off("click");
 				var li = a.parent();
 				li.append('<ul class="nav nav-treeview"></ul>');
 				var ul = nav.find('ul');
