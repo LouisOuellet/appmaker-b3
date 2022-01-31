@@ -2,15 +2,15 @@ API.Plugins.b3 = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('b3', 'main_navigation');
 		var nav = $('ul.nav-sidebar');
-		console.log(nav);
 		var checkNav = setInterval(function() {
-			var li = nav.find('a[href="?p=b3"]').parent();
-			if(li.length > 0){
-				console.log(li);
+			var a = nav.find('a[href="?p=b3"]');
+			if(a.length > 0){
 				clearInterval(checkNav);
+				a.removeAttr('href');
+				var li = a.parent();
 				li.append('<ul class="nav nav-treeview"></ul>');
 				var ul = nav.find('ul');
-				console.log(ul);
+				ul.append('<li class="nav-item"><a href="?p=b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>All B3</p></a></li>');
 				ul.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
 			}
 		}, 100);
