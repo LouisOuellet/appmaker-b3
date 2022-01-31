@@ -2,9 +2,10 @@ API.Plugins.b3 = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('b3', 'main_navigation');
 		var nav = $('ul.nav-sidebar').find('a[href="?p=b3"]').parent();
-		var html = '<ul class="nav nav-treeview"></ul>';
-		nav.append(html);
-		var sub = nav.fin('ul');
+		console.log(nav);
+		nav.append('<ul class="nav nav-treeview"></ul>');
+		var sub = nav.find('ul');
+		console.log(sub);
 		sub.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
 	},
 	load:{
