@@ -1,12 +1,19 @@
 API.Plugins.b3 = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('b3', 'main_navigation');
-		var nav = $('ul.nav-sidebar').find('a[href="?p=b3"]').parent();
+		var nav = $('ul.nav-sidebar');
 		console.log(nav);
-		nav.append('<ul class="nav nav-treeview"></ul>');
-		var sub = nav.find('ul');
-		console.log(sub);
-		sub.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
+		var checkNav = setInterval(function() {
+			var li = nav.find('a[href="?p=b3"]').parent();
+			if(li.length > 0){
+				console.log(li);
+				clearInterval(checkNav);
+				li.append('<ul class="nav nav-treeview"></ul>');
+				var ul = nav.find('ul');
+				console.log(ul);
+				ul.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
+			}
+		}, 100);
 	},
 	load:{
 		index:function(){
