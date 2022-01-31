@@ -1,7 +1,7 @@
 API.Plugins.b3 = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('b3', 'main_navigation');
-		var nav = $('#main_navigation').find('a[href="?p=b3"]').parent();
+		var nav = $('ul.nav-sidebar').find('a[href="?p=b3"]').parent();
 		var html = '<ul class="nav nav-treeview"></ul>';
 		nav.append(html);
 		var sub = nav.fin('ul');
