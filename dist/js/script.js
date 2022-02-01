@@ -12,6 +12,16 @@ API.Plugins.b3 = {
 				var ul = nav.find('ul');
 				ul.append('<li class="nav-item"><a href="?p=b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>All B3</p></a></li>');
 				ul.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
+				ul.append('<li class="nav-item"><a href="?p=test" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Test</p></a></li>');
+				ul.find('a[href="?p=test"]').off().click(function(){
+					API.NEWrequest('b3','read',function(dataset){
+						console.log('My Callback');
+						console.log(dataset);
+					}).then(function(dataset){
+						console.log('My Promise');
+						console.log(dataset);
+					});
+				});
 			}
 		}, 100);
 	},
