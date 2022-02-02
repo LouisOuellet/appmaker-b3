@@ -1,32 +1,32 @@
 API.Plugins.b3 = {
 	init:function(){
 		API.GUI.Sidebar.Nav.add('b3', 'main_navigation');
-		// var nav = $('ul.nav-sidebar');
-		// var checkNav = setInterval(function() {
-		// 	var a = nav.find('a[href="?p=b3"]');
-		// 	if(a.length > 0){
-		// 		clearInterval(checkNav);
-		// 		a.removeAttr('href').off("click");
-		// 		var li = a.parent();
-		// 		li.append('<ul class="nav nav-treeview"></ul>');
-		// 		var ul = nav.find('ul');
-		// 		ul.append('<li class="nav-item"><a href="?p=b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>All B3</p></a></li>');
-		// 		ul.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
-		// 		ul.append('<li class="nav-item"><a href="?p=init" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Init</p></a></li>');
-		// 		ul.append('<li class="nav-item"><a href="?p=test" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Test</p></a></li>');
-		// 		ul.find('a').off("click");
-		// 		ul.find('a[href="?p=init"]').removeAttr('href').off().click(function(){ API.init(); });
-		// 		ul.find('a[href="?p=test"]').removeAttr('href').off().click(function(){
-		// 			API.NEWrequest('b3','read',function(dataset){
-		// 				console.log('My Callback');
-		// 				console.log(dataset);
-		// 			}).then(function(dataset){
-		// 				console.log('My Promise');
-		// 				console.log(dataset);
-		// 			});
-		// 		});
-		// 	}
-		// }, 100);
+		var nav = $('ul.nav-sidebar');
+		var checkNav = setInterval(function() {
+			var a = nav.find('a[href="?p=b3"]');
+			if(a.length > 0){
+				clearInterval(checkNav);
+				a.removeAttr('href').off("click");
+				var li = a.parent();
+				li.append('<ul class="nav nav-treeview"></ul>');
+				var ul = nav.find('ul');
+				ul.append('<li class="nav-item"><a href="?p=b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>All B3</p></a></li>');
+				ul.append('<li class="nav-item"><a href="?p=my_b3" class="nav-link"><i class="far fa-circle nav-icon"></i><p>My B3</p></a></li>');
+				ul.append('<li class="nav-item"><a href="?p=init" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Init</p></a></li>');
+				ul.append('<li class="nav-item"><a href="?p=test" class="nav-link"><i class="far fa-circle nav-icon"></i><p>Test</p></a></li>');
+				ul.find('a').off("click");
+				ul.find('a[href="?p=init"]').removeAttr('href').off().click(function(){ API.init(); });
+				ul.find('a[href="?p=test"]').removeAttr('href').off().click(function(){
+					API.NEWrequest('b3','read',function(dataset){
+						console.log('My Callback');
+						console.log(dataset);
+					}).then(function(dataset){
+						console.log('My Promise');
+						console.log(dataset);
+					});
+				});
+			}
+		}, 100);
 	},
 	load:{
 		index:function(){
